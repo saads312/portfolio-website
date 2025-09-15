@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     default: "Saad Syed",
     template: "%s | Saad Syed",
   },
-  description: "Passionate about all things Digital Hardware! Looking to innovate in the field of ML Hardware, FPGA, or ASIC Design.",
+  description:
+    "Passionate about all things Digital Hardware! Looking to innovate in the field of ML Hardware, FPGA, or ASIC Design.",
   openGraph: {
     title: "Saad Syed",
     description:
@@ -45,6 +46,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon.png",
   },
 };
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -66,8 +68,9 @@ export default function RootLayout({
         <Analytics />
       </head>
       <body
-        className={`bg-black ${process.env.NODE_ENV === "development" ? "debug-screens" : undefined
-          }`}
+        className={`bg-black ${
+          process.env.NODE_ENV === "development" ? "debug-screens" : undefined
+        }`}
       >
         {children}
       </body>

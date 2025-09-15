@@ -7,6 +7,7 @@ import { Card } from "./components/card";
 const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
+  { name: "Resume", href: "/resume" }, // new
 ];
 
 export default function Home() {
@@ -23,10 +24,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-tl from-black via-red-950/40 to-black">
+    <div className="relative min-h-screen bg-gradient-to-tl from-black via-red-950/30 to-black">
       {/* Sticky Navigation Bar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-100 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
           showNavbar
             ? "translate-y-0 opacity-100"
             : "-translate-y-full opacity-0"
@@ -41,12 +42,12 @@ export default function Home() {
               >
                 Saad Syed
               </Link>
-              <ul className="flex items-center gap-6">
+              <ul className="flex items-center gap-8">
                 {navigation.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="text-sm duration-300 text-zinc-400 hover:text-zinc-100"
+                    className="text-base font-medium text-zinc-300 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -57,39 +58,62 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Particles for entire page */}
+      {/* Particles Background */}
       <Particles
         className="absolute inset-0 -z-10 animate-fade-in"
         quantity={100}
       />
 
       {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center w-screen h-screen">
-        <nav className="my-16 animate-fade-in">
-          <ul className="flex items-center justify-center gap-4">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </ul>
-        </nav>
-        <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
+      <div className="flex flex-col md:flex-row items-center justify-between w-screen h-screen px-12">
+        {/* Left side */}
+        <div className="flex flex-col space-y-6 max-w-xl">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-display font-bold text-white">
+            Saad Syed
+          </h1>
 
-        <h1 className="py-3.5 px-0.5 z-10 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text ">
-          Saad Syed
-        </h1>
-
-        <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-        <div className="my-16 text-center animate-fade-in">
-          <h2 className="text-m text-zinc-500 ">
+          <p className="text-lg text-zinc-400">
             Passionate about all things Digital Hardware! Looking to innovate in
             the field of ML Hardware, FPGA, or ASIC Design.
-          </h2>
+          </p>
+
+          {/* Quick Links */}
+          <div className="flex space-x-4 mt-4">
+            <Link
+              href="/resume"
+              className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+              bg-white/5 backdrop-blur-sm border border-white/10 
+              hover:bg-red-600/80 hover:border-red-500 
+              transition-colors duration-300"
+            >
+              Resume
+            </Link>
+            <Link
+              href="https://linkedin.com/in/saad-syed-uw"
+              target="_blank"
+              className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+              bg-white/5 backdrop-blur-sm border border-white/10 
+              hover:bg-blue-600/80 hover:border-blue-500 
+              transition-colors duration-300"
+            >
+              LinkedIn
+            </Link>
+            <Link
+              href="https://github.com/saads312"
+              target="_blank"
+              className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+              bg-white/5 backdrop-blur-sm border border-white/10 
+              hover:bg-green-600/80 hover:border-green-500 
+              transition-colors duration-300"
+            >
+              GitHub
+            </Link>
+          </div>
+        </div>
+
+        {/* Right side: placeholder image box */}
+        <div className="hidden md:block w-80 h-80 bg-zinc-900/40 rounded-xl shadow-lg border border-zinc-800">
+          {/* Replace with <img src="/me.png" className="w-full h-full object-cover rounded-xl" /> */}
         </div>
       </div>
 
