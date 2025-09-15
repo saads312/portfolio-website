@@ -26,7 +26,7 @@ export default function Home() {
     <div className="relative min-h-screen bg-gradient-to-tl from-black via-zinc-600/20 to-black">
       {/* Sticky Navigation Bar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-100 ${
           showNavbar
             ? "translate-y-0 opacity-100"
             : "-translate-y-full opacity-0"
