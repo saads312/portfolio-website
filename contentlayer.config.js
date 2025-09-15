@@ -6,14 +6,15 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
-	path: {
-		type: "string",
-		resolve: (doc) => `/${doc._raw.flattenedPath}`,
-	},
-	slug: {
-		type: "string",
-		resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
-	},
+  path: {
+    type: "string",
+    resolve: (doc) => `/${doc._raw.flattenedPath}`,
+  },
+  slug: {
+    type: "string",
+    resolve: (doc) =>
+      doc._raw.flattenedPath.split("/").pop(),  // always safe
+  },
 };
 
 export const Project = defineDocumentType(() => ({
