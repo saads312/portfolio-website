@@ -40,7 +40,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className={isWIP ? "bg-gradient-to-tl from-black via-zinc-900 to-black min-h-screen" : "bg-zinc-50 min-h-screen"}>
-      <Header project={project} views={views} />
+      {/* <Header project={project} views={views} /> */}
       <ReportView slug={project.slug} />
 
       {isWIP ? (
