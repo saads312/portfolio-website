@@ -1,238 +1,3 @@
-// "use client";
-
-// import React, { useRef, useEffect, useState } from "react";
-// import { useMousePosition } from "@/util/mouse";
-
-// interface ParticlesProps {
-// 	className?: string;
-// 	quantity?: number;
-// 	staticity?: number;
-// 	ease?: number;
-// 	refresh?: boolean;
-// }
-
-// export default function Particles({
-// 	className = "",
-// 	quantity = 50,
-// 	staticity = 30,
-// 	ease = 50,
-// 	refresh = false,
-// }: ParticlesProps) {
-// 	const canvasRef = useRef<HTMLCanvasElement>(null);
-// 	const canvasContainerRef = useRef<HTMLDivElement>(null);
-// 	const context = useRef<CanvasRenderingContext2D | null>(null);
-// 	const circles = useRef<any[]>([]);
-// 	const mousePosition = useMousePosition();
-// 	const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-// 	const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-// 	const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
-
-// 	useEffect(() => {
-// 		if (canvasRef.current) {
-// 			context.current = canvasRef.current.getContext("2d");
-// 		}
-// 		initCanvas();
-// 		animate();
-// 		window.addEventListener("resize", initCanvas);
-
-// 		return () => {
-// 			window.removeEventListener("resize", initCanvas);
-// 		};
-// 	}, []);
-
-// 	useEffect(() => {
-// 		onMouseMove();
-// 	}, [mousePosition.x, mousePosition.y]);
-
-// 	useEffect(() => {
-// 		initCanvas();
-// 	}, [refresh]);
-
-// 	const initCanvas = () => {
-// 		resizeCanvas();
-// 		drawParticles();
-// 	};
-
-// 	const onMouseMove = () => {
-// 		if (canvasRef.current) {
-// 			const rect = canvasRef.current.getBoundingClientRect();
-// 			const { w, h } = canvasSize.current;
-// 			const x = mousePosition.x - rect.left - w / 2;
-// 			const y = mousePosition.y - rect.top - h / 2;
-// 			const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2;
-// 			if (inside) {
-// 				mouse.current.x = x;
-// 				mouse.current.y = y;
-// 			}
-// 		}
-// 	};
-
-// 	type Circle = {
-// 		x: number;
-// 		y: number;
-// 		translateX: number;
-// 		translateY: number;
-// 		size: number;
-// 		alpha: number;
-// 		targetAlpha: number;
-// 		dx: number;
-// 		dy: number;
-// 		magnetism: number;
-// 	};
-
-// 	const resizeCanvas = () => {
-// 		if (canvasContainerRef.current && canvasRef.current && context.current) {
-// 			circles.current.length = 0;
-// 			canvasSize.current.w = canvasContainerRef.current.offsetWidth;
-// 			canvasSize.current.h = canvasContainerRef.current.offsetHeight;
-// 			canvasRef.current.width = canvasSize.current.w * dpr;
-// 			canvasRef.current.height = canvasSize.current.h * dpr;
-// 			canvasRef.current.style.width = `${canvasSize.current.w}px`;
-// 			canvasRef.current.style.height = `${canvasSize.current.h}px`;
-// 			context.current.scale(dpr, dpr);
-// 		}
-// 	};
-
-// 	const circleParams = (): Circle => {
-// 		const x = Math.floor(Math.random() * canvasSize.current.w);
-// 		const y = Math.floor(Math.random() * canvasSize.current.h);
-// 		const translateX = 0;
-// 		const translateY = 0;
-// 		const size = Math.floor(Math.random() * 2) + 0.1;
-// 		const alpha = 0;
-// 		const targetAlpha = parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
-// 		const dx = (Math.random() - 0.5) * 0.2;
-// 		const dy = (Math.random() - 0.5) * 0.2;
-// 		const magnetism = 0.1 + Math.random() * 4;
-// 		return {
-// 			x,
-// 			y,
-// 			translateX,
-// 			translateY,
-// 			size,
-// 			alpha,
-// 			targetAlpha,
-// 			dx,
-// 			dy,
-// 			magnetism,
-// 		};
-// 	};
-
-// 	const drawCircle = (circle: Circle, update = false) => {
-// 		if (context.current) {
-// 			const { x, y, translateX, translateY, size, alpha } = circle;
-// 			context.current.translate(translateX, translateY);
-// 			context.current.beginPath();
-// 			context.current.arc(x, y, size, 0, 2 * Math.PI);
-// 			context.current.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-// 			context.current.fill();
-// 			context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-// 			if (!update) {
-// 				circles.current.push(circle);
-// 			}
-// 		}
-// 	};
-
-// 	const clearContext = () => {
-// 		if (context.current) {
-// 			context.current.clearRect(
-// 				0,
-// 				0,
-// 				canvasSize.current.w,
-// 				canvasSize.current.h,
-// 			);
-// 		}
-// 	};
-
-// 	const drawParticles = () => {
-// 		clearContext();
-// 		const particleCount = quantity;
-// 		for (let i = 0; i < particleCount; i++) {
-// 			const circle = circleParams();
-// 			drawCircle(circle);
-// 		}
-// 	};
-
-// 	const remapValue = (
-// 		value: number,
-// 		start1: number,
-// 		end1: number,
-// 		start2: number,
-// 		end2: number,
-// 	): number => {
-// 		const remapped =
-// 			((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
-// 		return remapped > 0 ? remapped : 0;
-// 	};
-
-// 	const animate = () => {
-// 		clearContext();
-// 		circles.current.forEach((circle: Circle, i: number) => {
-// 			// Handle the alpha value
-// 			const edge = [
-// 				circle.x + circle.translateX - circle.size, // distance from left edge
-// 				canvasSize.current.w - circle.x - circle.translateX - circle.size, // distance from right edge
-// 				circle.y + circle.translateY - circle.size, // distance from top edge
-// 				canvasSize.current.h - circle.y - circle.translateY - circle.size, // distance from bottom edge
-// 			];
-// 			const closestEdge = edge.reduce((a, b) => Math.min(a, b));
-// 			const remapClosestEdge = parseFloat(
-// 				remapValue(closestEdge, 0, 20, 0, 1).toFixed(2),
-// 			);
-// 			if (remapClosestEdge > 1) {
-// 				circle.alpha += 0.02;
-// 				if (circle.alpha > circle.targetAlpha) {
-// 					circle.alpha = circle.targetAlpha;
-// 				}
-// 			} else {
-// 				circle.alpha = circle.targetAlpha * remapClosestEdge;
-// 			}
-// 			circle.x += circle.dx;
-// 			circle.y += circle.dy;
-// 			circle.translateX +=
-// 				(mouse.current.x / (staticity / circle.magnetism) - circle.translateX) /
-// 				ease;
-// 			circle.translateY +=
-// 				(mouse.current.y / (staticity / circle.magnetism) - circle.translateY) /
-// 				ease;
-// 			// circle gets out of the canvas
-// 			if (
-// 				circle.x < -circle.size ||
-// 				circle.x > canvasSize.current.w + circle.size ||
-// 				circle.y < -circle.size ||
-// 				circle.y > canvasSize.current.h + circle.size
-// 			) {
-// 				// remove the circle from the array
-// 				circles.current.splice(i, 1);
-// 				// create a new circle
-// 				const newCircle = circleParams();
-// 				drawCircle(newCircle);
-// 				// update the circle position
-// 			} else {
-// 				drawCircle(
-// 					{
-// 						...circle,
-// 						x: circle.x,
-// 						y: circle.y,
-// 						translateX: circle.translateX,
-// 						translateY: circle.translateY,
-// 						alpha: circle.alpha,
-// 					},
-// 					true,
-// 				);
-// 			}
-// 		});
-// 		window.requestAnimationFrame(animate);
-// 	};
-
-// 	return (
-// 		<div className={className} ref={canvasContainerRef} aria-hidden="true">
-// 			<canvas ref={canvasRef} />
-// 		</div>
-// 	);
-// }
-
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -325,72 +90,106 @@ export default function ElectronFlow({
 				length: 0,
 			};
 
-			// Create more circuit-like paths with straight segments and turns
 			const pathType = Math.random();
 			
-			if (pathType < 0.4) {
-				// Horizontal path with some turns
-				const y = (h / (pathCount + 1)) * (i + 1);
-				const turnCount = 1 + Math.floor(Math.random() * 3);
+			if (pathType < 0.6) {
+				// Horizontal paths with turns (60%)
+				const direction = Math.random(); // 0-1 for left-to-right or right-to-left
+				const startSide = Math.random(); // Which side to start from
 				
-				let currentX = 0;
-				let currentY = y;
+				let startX, startY, endX;
+				
+				if (startSide < 0.33) {
+					// Start from left
+					startX = -50;
+					endX = w + 50;
+				} else if (startSide < 0.66) {
+					// Start from right
+					startX = w + 50;
+					endX = -50;
+				} else {
+					// Start from top
+					startX = Math.random() * w;
+					endX = Math.random() * w;
+				}
+				
+				if (startSide < 0.66) {
+					startY = h * 0.2 + Math.random() * h * 0.6;
+				} else {
+					startY = -50;
+				}
+				
+				const turnCount = 1 + Math.floor(Math.random() * 4);
+				const segmentLength = Math.abs(endX - startX) / (turnCount + 1);
+				
+				let currentX = startX;
+				let currentY = startY;
 				path.points.push({ x: currentX, y: currentY });
 				
 				for (let turn = 0; turn < turnCount; turn++) {
 					// Straight segment
-					const segmentLength = w / (turnCount + 1) + (Math.random() - 0.5) * 100;
-					currentX += segmentLength;
+					const segmentVar = segmentLength + (Math.random() - 0.5) * segmentLength * 0.4;
+					currentX += startX < endX ? segmentVar : -segmentVar;
 					path.points.push({ x: currentX, y: currentY });
 					
 					// Turn (if not the last segment)
 					if (turn < turnCount - 1) {
 						const turnDirection = Math.random() < 0.5 ? 1 : -1;
-						const turnAmount = 40 + Math.random() * 60;
+						const turnAmount = 30 + Math.random() * 80;
 						currentY += turnDirection * turnAmount;
+						currentY = Math.max(0, Math.min(h, currentY)); // Keep in bounds
 						path.points.push({ x: currentX, y: currentY });
 					}
 				}
 				
-				// Final segment to edge
-				path.points.push({ x: w, y: currentY });
-				
-			} else if (pathType < 0.7) {
-				// L-shaped or step paths
-				const startX = Math.random() * w * 0.2;
-				const startY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 50;
-				const endX = w * 0.8 + Math.random() * w * 0.2;
-				const endY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 50;
-				
-				path.points.push({ x: startX, y: startY });
-				
-				// Add a corner point
-				const cornerChoice = Math.random();
-				if (cornerChoice < 0.5) {
-					// Horizontal then vertical
-					path.points.push({ x: endX, y: startY });
-					path.points.push({ x: endX, y: endY });
+				// Final segment
+				if (startSide < 0.66) {
+					path.points.push({ x: endX, y: currentY });
 				} else {
-					// Vertical then horizontal
-					path.points.push({ x: startX, y: endY });
-					path.points.push({ x: endX, y: endY });
+					path.points.push({ x: currentX, y: h + 50 });
 				}
 				
 			} else {
-				// More subtle wavy paths (less random)
-				const startY = (h / (pathCount + 1)) * (i + 1);
-				const segments = 30;
+				// L-shaped paths (40%)
+				const startSide = Math.random();
+				let startX, startY, endX, endY;
 				
-				for (let j = 0; j <= segments; j++) {
-					const t = j / segments;
-					const x = t * w;
-					
-					// Gentler waves
-					const waveAmp = 15 + Math.random() * 25;
-					const waveFreq = 1 + Math.random() * 1;
-					const y = startY + Math.sin(t * Math.PI * waveFreq) * waveAmp;
-					
-					path.points.push({ x, y });
+				if (startSide < 0.25) {
+					// Start from left
+					startX = -30;
+					startY = h * 0.2 + Math.random() * h * 0.6;
+					endX = w * 0.3 + Math.random() * w * 0.4;
+					endY = h * 0.2 + Math.random() * h * 0.6;
+				} else if (startSide < 0.5) {
+					// Start from right
+					startX = w + 30;
+					startY = h * 0.2 + Math.random() * h * 0.6;
+					endX = w * 0.3 + Math.random() * w * 0.4;
+					endY = h * 0.2 + Math.random() * h * 0.6;
+				} else if (startSide < 0.75) {
+					// Start from top
+					startX = w * 0.2 + Math.random() * w * 0.6;
+					startY = -30;
+					endX = w * 0.2 + Math.random() * w * 0.6;
+					endY = h * 0.3 + Math.random() * h * 0.4;
+				} else {
+					// Start from bottom
+					startX = w * 0.2 + Math.random() * w * 0.6;
+					startY = h + 30;
+					endX = w * 0.2 + Math.random() * w * 0.6;
+					endY = h * 0.3 + Math.random() * h * 0.4;
+				}
+				
+				path.points.push({ x: startX, y: startY });
+				
+				// Add corner point - randomize the turn direction
+				const cornerChoice = Math.random();
+				if (cornerChoice < 0.5) {
+					path.points.push({ x: endX, y: startY });
+					path.points.push({ x: endX, y: endY });
+				} else {
+					path.points.push({ x: startX, y: endY });
+					path.points.push({ x: endX, y: endY });
 				}
 			}
 
