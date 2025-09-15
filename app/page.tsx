@@ -65,57 +65,58 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-screen h-screen px-12">
-        {/* Left side */}
-        <div className="flex flex-col space-y-6 max-w-xl">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-display font-bold text-white">
-            Saad Syed
-            </h1>
+    <div className="flex flex-col md:flex-row items-center justify-center gap-24 w-screen h-screen px-12">
+    {/* Left side */}
+    <div className="flex flex-col space-y-6 max-w-xl">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl font-display font-bold text-white">
+        Saad Syed
+        </h1>
 
-            <p className="text-lg text-zinc-400">
-            Passionate about all things Digital Hardware! Looking to innovate in
-            the field of ML Hardware, FPGA, or ASIC Design.
-            </p>
+        <p className="text-lg text-zinc-400">
+        Passionate about all things Digital Hardware! Looking to innovate in
+        the field of ML Hardware, FPGA, or ASIC Design.
+        </p>
 
-            {/* Quick Links */}
-            <div className="flex space-x-4 mt-4">
-            <Link
-                href="/resume3bnew.pdf"
-                className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
-                bg-white/5 backdrop-blur-sm border border-white/10 
-                hover:bg-red-600/80 hover:border-red-500 
-                transition-colors duration-300"
-            >
-                Resume
-            </Link>
-            <Link
-                href="https://linkedin.com/in/saad-syed-uw"
-                target="_blank"
-                className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
-                bg-white/5 backdrop-blur-sm border border-white/10 
-                hover:bg-blue-600/80 hover:border-blue-500 
-                transition-colors duration-300"
-            >
-                LinkedIn
-            </Link>
-            <Link
-                href="https://github.com/saads312"
-                target="_blank"
-                className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
-                bg-white/5 backdrop-blur-sm border border-white/10 
-                hover:bg-green-600/80 hover:border-green-500 
-                transition-colors duration-300"
-            >
-                GitHub
-            </Link>
-            </div>
+        {/* Quick Links */}
+        <div className="flex space-x-4 mt-4">
+        <Link
+            href="/resume3bnew.pdf"
+            className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+            bg-white/5 backdrop-blur-sm border border-white/10 
+            hover:bg-red-600/80 hover:border-red-500 
+            transition-colors duration-300"
+        >
+            Resume
+        </Link>
+        <Link
+            href="https://linkedin.com/in/saad-syed-uw"
+            target="_blank"
+            className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+            bg-white/5 backdrop-blur-sm border border-white/10 
+            hover:bg-blue-600/80 hover:border-blue-500 
+            transition-colors duration-300"
+        >
+            LinkedIn
+        </Link>
+        <Link
+            href="https://github.com/saads312"
+            target="_blank"
+            className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+            bg-white/5 backdrop-blur-sm border border-white/10 
+            hover:bg-green-600/80 hover:border-green-500 
+            transition-colors duration-300"
+        >
+            GitHub
+        </Link>
         </div>
+    </div>
 
-        {/* Right side: placeholder for image */}
-        <div className="hidden md:block w-80 h-80 bg-zinc-900/40 rounded-xl shadow-lg border border-zinc-800">
-            {/* Replace with <img src="/me.png" className="w-full h-full object-cover rounded-xl" /> */}
-        </div>
-        </div>
+    {/* Right side: placeholder for image */}
+    <div className="hidden md:block w-80 h-80 bg-zinc-900/40 rounded-xl shadow-lg border border-zinc-800">
+        {/* Replace with <img src="/me.png" className="w-full h-full object-cover rounded-xl" /> */}
+    </div>
+    </div>
+
 
 
       {/* Experience Section */}
@@ -135,7 +136,7 @@ export default function Home() {
                   <div className="flex-shrink-0">
                     <img
                       src="/opal-logo.png"
-                      alt="Opal"
+                      alt="VCast Online"
                       className="w-20 h-20 object-contain"
                     />
                   </div>
@@ -144,16 +145,16 @@ export default function Home() {
                       <div>
                         <div className="flex items-center justify-between mb-1">
                           <p className="text-zinc-500 text-sm">
-                            Jul - Aug 2024
+                            Jan 2025 - May 2025
                           </p>
                           <p className="text-zinc-500 text-sm">
-                            San Francisco, CA
+                            Dubai, UAE
                           </p>
                         </div>
                         <h3 className="text-xl font-semibold text-zinc-100">
-                          Software QA
+                           Software Engineer (Co-op)
                         </h3>
-                        <p className="text-zinc-400 mt-1">Opal Camera</p>
+                        <p className="text-zinc-400 mt-1">VCast Online</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
                           <li>
                             • Designed and executed test plans to validate
