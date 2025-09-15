@@ -181,9 +181,9 @@ export default async function ProjectsPage() {
   );
 
   // Find featured by slug (match your actual filenames!)
-  const featured = validProjects.find((p) => p.slug === "mvm-engine");
-  const top2 = validProjects.find((p) => p.slug === "tanh-approx");
-  const top3 = validProjects.find((p) => p.slug === "riscv-core");
+  const featured = validProjects.find((p) => p.slug === "mvm-");
+  const top2 = validProjects.find((p) => p.slug === "tanh");
+  const top3 = validProjects.find((p) => p.slug === "riscv");
 
   // Defensive filtering (remove ones already used as featured/top2/top3)
   const sorted = validProjects
