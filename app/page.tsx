@@ -7,7 +7,7 @@ import { Card } from "./components/card";
 const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
-  { name: "Resume", href: "/resume" }, // new
+  { name: "Resume", href: "/resume3bnew.pdf" }, // new
 ];
 
 export default function Home() {
@@ -80,7 +80,7 @@ export default function Home() {
             {/* Quick Links */}
             <div className="flex space-x-4 mt-4">
             <Link
-                href="/resume"
+                href="/resume3bnew.pdf"
                 className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
                 bg-white/5 backdrop-blur-sm border border-white/10 
                 hover:bg-red-600/80 hover:border-red-500 
@@ -108,19 +108,6 @@ export default function Home() {
             >
                 GitHub
             </Link>
-            </div>
-
-            {/* Secondary Navigation */}
-            <div className="flex space-x-6 mt-8">
-            {navigation.map((item) => (
-                <Link
-                key={item.href}
-                href={item.href}
-                className="text-lg font-semibold text-zinc-300 hover:text-white transition-colors"
-                >
-                {item.name}
-                </Link>
-            ))}
             </div>
         </div>
 
