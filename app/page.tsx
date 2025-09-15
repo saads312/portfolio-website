@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import Particles from "./components/particles";
+import ElectronFlow from "./components/particles";
 import { Card } from "./components/card";
 
 const navigation = [
@@ -41,11 +41,12 @@ export default function Home() {
       </nav>
 
       {/* Particles Background */}
-      <Particles
+      <ElectronFlow
         className="absolute inset-0 -z-10 animate-fade-in"
-        quantity={100}
+        pathCount={6}
+        electronSpeed={1.5}
+        trailLength={50}
       />
-
       {/* Hero Section - Add top padding to account for fixed navbar */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-24 w-screen h-screen px-12 pt-20">
         {/* Left side */}

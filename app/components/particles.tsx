@@ -237,7 +237,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 
-interface ParticlesProps {
+interface ElectronFlowProps {
 	className?: string;
 	pathCount?: number;
 	electronSpeed?: number;
@@ -245,13 +245,13 @@ interface ParticlesProps {
 	brightness?: number;
 }
 
-export default function Particles({
+export default function ElectronFlow({
 	className = "",
 	pathCount = 5,
 	electronSpeed = 2,
 	trailLength = 40,
 	brightness = 0.8,
-}: ParticlesProps) {
+}: ElectronFlowProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const canvasContainerRef = useRef<HTMLDivElement>(null);
 	const context = useRef<CanvasRenderingContext2D | null>(null);
