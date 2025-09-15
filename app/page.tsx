@@ -113,6 +113,15 @@ export default function Home() {
                       <p className="text-zinc-400 mt-1">
                         Bachelor of Applied Science (BASc) • University of Waterloo
                       </p>
+                      <p className="text-zinc-500 text-sm mt-2">
+                        Relevant Courses: ECE 722 - Reconfigurable Computing, ECE 320 - Computer Architecture, ECE 350 - Real-Time Operating Systems, ECE 351 - Compilers, ECE 327 - Digital Hardware Systems
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
                     </div>
                   </div>
                 </div>
