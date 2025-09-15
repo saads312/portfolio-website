@@ -14,7 +14,7 @@ type Props = {
   };
 };
 
-const redis = Redis.fromEnv();
+// const redis = Redis.fromEnv();
 
 export async function generateStaticParams(): Promise<Props["params"][]> {
   return allProjects
@@ -32,8 +32,8 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const views =
-    (await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
+//   const views =
+//     (await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
 
   // Check if this is a WIP project
   const isWIP = project.status === "wip";
