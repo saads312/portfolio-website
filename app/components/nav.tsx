@@ -69,7 +69,7 @@ import React from "react";
 export const Navigation: React.FC = () => {
   return (
     <header>
-      <div className="fixed inset-x-0 top-0 z-50 backdrop-blur bg-zinc-900/70 border-b border-zinc-800">
+      <div className="fixed inset-x-0 top-0 z-50 bg-zinc-900 border-b border-zinc-800 shadow-md">
         <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
           <div className="flex justify-between gap-8">
             <Link
@@ -85,7 +85,7 @@ export const Navigation: React.FC = () => {
               Contact
             </Link>
             <Link
-              href="/resume3bnew.pdf"
+              href="/resume"
               className="duration-200 text-zinc-300 hover:text-white font-medium"
             >
               Resume
