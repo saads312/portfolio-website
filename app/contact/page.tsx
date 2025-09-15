@@ -7,21 +7,21 @@ import { Card } from "../components/card";
 const socials = [
 	{
 		icon: <Linkedin size={20} />,
-		href: "https://www.linkedin.com/in/talha-amir04/",
+		href: "https://www.linkedin.com/in/saad-syed-uw/",
 		label: "LinkedIn",
-		handle: "Talha Amir",
+		handle: "Saad Syed ",
 	},
 	{
 		icon: <Mail size={20} />,
-		href: "mailto:talhaamirm@gmail.com",
+		href: "mailto:noorulsaad@gmail.com",
 		label: "Email",
-		handle: "talhaamirm@gmail.com",
+		handle: "noorulsaad@gmail.com",
 	},
 	{
 		icon: <Github size={20} />,
-		href: "https://github.com/talhaamir12",
+		href: "https://github.com/saads312",
 		label: "Github",
-		handle: "talhaamir12",
+		handle: "saads312",
 	},
 ];
 

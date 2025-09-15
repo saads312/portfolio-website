@@ -6,19 +6,19 @@ import { Analytics } from "./components/analytics";
 
 export const metadata: Metadata = {
   title: {
-    default: "Talha Amir",
-    template: "%s | Talha Amir",
+    default: "Saad Syed",
+    template: "%s | Saad Syed",
   },
-  description: "Passionate about embedded systems, AI, and building technology with real-world impact.",
+  description: "Passionate about all things Digital Hardware! Looking to innovate in the field of ML Hardware, FPGA, or ASIC Design.",
   openGraph: {
-    title: "Talha Amir",
+    title: "Saad Syed",
     description:
-      "Passionate about embedded systems, AI, and building technology with real-world impact.",
-    url: "https://talhas.ca",
-    siteName: "Talha Amir",
+      "Passionate about all things Digital Hardware! Looking to innovate in the field of ML Hardware, FPGA, or ASIC Design.",
+    url: "https://saadpiece.com",
+    siteName: "Saad Syed",
     images: [
       {
-        url: "https://talhas.ca/og.png",
+        url: "https://saadpiece.com/og.png",
         width: 2880,
         height: 1440,
       },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Talha Amir",
+    title: "Saad Syed",
     card: "summary_large_image",
   },
   icons: {
