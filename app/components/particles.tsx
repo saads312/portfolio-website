@@ -90,107 +90,23 @@ export default function ElectronFlow({
 				length: 0,
 			};
 
-			const pathType = Math.random();
+			// Create curved paths across the screen (back to original style)
+			const startY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 100;
+			const endY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 100;
 			
-			if (pathType < 0.6) {
-				// Horizontal paths with turns (60%)
-				const direction = Math.random(); // 0-1 for left-to-right or right-to-left
-				const startSide = Math.random(); // Which side to start from
+			// Generate smooth curve points
+			const segments = 50;
+			for (let j = 0; j <= segments; j++) {
+				const t = j / segments;
+				const x = t * w;
 				
-				let startX, startY, endX;
+				// Create wavy paths with some randomness
+				const waveFreq = 2 + Math.random() * 2;
+				const waveAmp = 30 + Math.random() * 40;
+				const baseY = startY + (endY - startY) * t;
+				const y = baseY + Math.sin(t * Math.PI * waveFreq) * waveAmp * Math.sin(Math.PI * t);
 				
-				if (startSide < 0.33) {
-					// Start from left
-					startX = -50;
-					endX = w + 50;
-				} else if (startSide < 0.66) {
-					// Start from right
-					startX = w + 50;
-					endX = -50;
-				} else {
-					// Start from top
-					startX = Math.random() * w;
-					endX = Math.random() * w;
-				}
-				
-				if (startSide < 0.66) {
-					startY = h * 0.2 + Math.random() * h * 0.6;
-				} else {
-					startY = -50;
-				}
-				
-				const turnCount = 1 + Math.floor(Math.random() * 4);
-				const segmentLength = Math.abs(endX - startX) / (turnCount + 1);
-				
-				let currentX = startX;
-				let currentY = startY;
-				path.points.push({ x: currentX, y: currentY });
-				
-				for (let turn = 0; turn < turnCount; turn++) {
-					// Straight segment
-					const segmentVar = segmentLength + (Math.random() - 0.5) * segmentLength * 0.4;
-					currentX += startX < endX ? segmentVar : -segmentVar;
-					path.points.push({ x: currentX, y: currentY });
-					
-					// Turn (if not the last segment)
-					if (turn < turnCount - 1) {
-						const turnDirection = Math.random() < 0.5 ? 1 : -1;
-						const turnAmount = 30 + Math.random() * 80;
-						currentY += turnDirection * turnAmount;
-						currentY = Math.max(0, Math.min(h, currentY)); // Keep in bounds
-						path.points.push({ x: currentX, y: currentY });
-					}
-				}
-				
-				// Final segment
-				if (startSide < 0.66) {
-					path.points.push({ x: endX, y: currentY });
-				} else {
-					path.points.push({ x: currentX, y: h + 50 });
-				}
-				
-			} else {
-				// L-shaped paths (40%)
-				const startSide = Math.random();
-				let startX, startY, endX, endY;
-				
-				if (startSide < 0.25) {
-					// Start from left
-					startX = -30;
-					startY = h * 0.2 + Math.random() * h * 0.6;
-					endX = w * 0.3 + Math.random() * w * 0.4;
-					endY = h * 0.2 + Math.random() * h * 0.6;
-				} else if (startSide < 0.5) {
-					// Start from right
-					startX = w + 30;
-					startY = h * 0.2 + Math.random() * h * 0.6;
-					endX = w * 0.3 + Math.random() * w * 0.4;
-					endY = h * 0.2 + Math.random() * h * 0.6;
-				} else if (startSide < 0.75) {
-					// Start from top
-					startX = w * 0.2 + Math.random() * w * 0.6;
-					startY = -30;
-					endX = w * 0.2 + Math.random() * w * 0.6;
-					endY = h * 0.3 + Math.random() * h * 0.4;
-				} else {
-					// Start from bottom
-					startX = w * 0.2 + Math.random() * w * 0.6;
-					startY = h + 30;
-					endX = w * 0.2 + Math.random() * w * 0.6;
-					endY = h * 0.3 + Math.random() * h * 0.4;
-				}
-				
-				path.points.push({ x: startX, y: startY });
-				
-				// Add corner point - randomize the turn direction
-				const cornerChoice = Math.random();
-				if (cornerChoice < 0.5) {
-					path.points.push({ x: endX, y: startY });
-					path.points.push({ x: endX, y: endY });
-				} else {
-					path.points.push({ x: startX, y: endY });
-					path.points.push({ x: endX, y: endY });
-				}
+				path.points.push({ x, y });
 			}
 
 			// Calculate path length
@@ -282,34 +198,33 @@ export default function ElectronFlow({
 				electron.trail.shift();
 			}
 
-			// Draw trail
-			electron.trail.forEach((point, index) => {
-				const alpha = (index / electron.trail.length) * brightness;
-				const size = (index / electron.trail.length) * 3 + 1;
-				
-				// Create gradient effect
-				const gradient = context.current!.createRadialGradient(
-					point.x, point.y, 0,
-					point.x, point.y, size * 2
-				);
-				
-				if (index === electron.trail.length - 1) {
-					// Brightest at the head
-					gradient.addColorStop(0, `rgba(0, 200, 255, ${alpha})`);
-					gradient.addColorStop(0.5, `rgba(0, 150, 255, ${alpha * 0.7})`);
-					gradient.addColorStop(1, `rgba(0, 100, 255, 0)`);
-				} else {
-					// Dimmer for the trail
-					gradient.addColorStop(0, `rgba(100, 150, 255, ${alpha * 0.6})`);
-					gradient.addColorStop(0.5, `rgba(50, 100, 255, ${alpha * 0.4})`);
-					gradient.addColorStop(1, `rgba(0, 50, 255, 0)`);
+			// Draw trail as straight line segments with dimming effect
+			if (electron.trail.length > 1) {
+				for (let i = 0; i < electron.trail.length - 1; i++) {
+					const alpha = (i / electron.trail.length) * brightness;
+					const lineWidth = (i / electron.trail.length) * 2 + 0.5;
+					
+					context.current!.strokeStyle = `rgba(0, 150, 255, ${alpha * 0.6})`;
+					context.current!.lineWidth = lineWidth;
+					context.current!.beginPath();
+					context.current!.moveTo(electron.trail[i].x, electron.trail[i].y);
+					context.current!.lineTo(electron.trail[i + 1].x, electron.trail[i + 1].y);
+					context.current!.stroke();
 				}
+			}
 
-				context.current!.beginPath();
-				context.current!.arc(point.x, point.y, size, 0, 2 * Math.PI);
-				context.current!.fillStyle = gradient;
-				context.current!.fill();
-			});
+			// Draw main electron as a bright circle
+			const electronRadius = 4;
+			context.current!.beginPath();
+			context.current!.arc(currentPos.x, currentPos.y, electronRadius, 0, 2 * Math.PI);
+			context.current!.fillStyle = `rgba(0, 200, 255, ${brightness})`;
+			context.current!.fill();
+			
+			// Add a bright glow around the main electron
+			context.current!.beginPath();
+			context.current!.arc(currentPos.x, currentPos.y, electronRadius * 1.5, 0, 2 * Math.PI);
+			context.current!.fillStyle = `rgba(100, 220, 255, ${brightness * 0.3})`;
+			context.current!.fill();
 
 			// Update electron position
 			electron.progress += electron.speed / 1000;
