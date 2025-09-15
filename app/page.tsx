@@ -65,103 +65,71 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between w-screen h-screen px-12">
+        <div className="flex flex-col md:flex-row items-center justify-between w-screen h-screen px-12">
         {/* Left side */}
         <div className="flex flex-col space-y-6 max-w-xl">
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-display font-bold text-white">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-display font-bold text-white">
             Saad Syed
-          </h1>
+            </h1>
 
-          <p className="text-lg text-zinc-400">
+            <p className="text-lg text-zinc-400">
             Passionate about all things Digital Hardware! Looking to innovate in
             the field of ML Hardware, FPGA, or ASIC Design.
-          </p>
+            </p>
 
-          {/* Quick Links */}
-          <div className="flex space-x-4 mt-4">
+            {/* Quick Links */}
+            <div className="flex space-x-4 mt-4">
             <Link
-              href="/resume"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
-              bg-white/5 backdrop-blur-sm border border-white/10 
-              hover:bg-red-600/80 hover:border-red-500 
-              transition-colors duration-300"
+                href="/resume"
+                className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+                bg-white/5 backdrop-blur-sm border border-white/10 
+                hover:bg-red-600/80 hover:border-red-500 
+                transition-colors duration-300"
             >
-              Resume
+                Resume
             </Link>
             <Link
-              href="https://linkedin.com/in/saad-syed-uw"
-              target="_blank"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
-              bg-white/5 backdrop-blur-sm border border-white/10 
-              hover:bg-blue-600/80 hover:border-blue-500 
-              transition-colors duration-300"
+                href="https://linkedin.com/in/saad-syed-uw"
+                target="_blank"
+                className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+                bg-white/5 backdrop-blur-sm border border-white/10 
+                hover:bg-blue-600/80 hover:border-blue-500 
+                transition-colors duration-300"
             >
-              LinkedIn
+                LinkedIn
             </Link>
             <Link
-              href="https://github.com/saads312"
-              target="_blank"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
-              bg-white/5 backdrop-blur-sm border border-white/10 
-              hover:bg-green-600/80 hover:border-green-500 
-              transition-colors duration-300"
+                href="https://github.com/saads312"
+                target="_blank"
+                className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
+                bg-white/5 backdrop-blur-sm border border-white/10 
+                hover:bg-green-600/80 hover:border-green-500 
+                transition-colors duration-300"
             >
-              GitHub
+                GitHub
             </Link>
-          </div>
-        </div>
-
-        {/* Right side: placeholder image box */}
-        <div className="hidden md:block w-80 h-80 bg-zinc-900/40 rounded-xl shadow-lg border border-zinc-800">
-          {/* Replace with <img src="/me.png" className="w-full h-full object-cover rounded-xl" /> */}
-        </div>
-      </div>
-
-      {/* Education Section */}
-      <div className="relative py-24">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="mb-16 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-              Education
-            </h2>
-            <div className="w-24 h-px bg-zinc-500 mx-auto mt-4"></div>
-          </div>
-
-          <Card>
-            <div className="p-8">
-              <div className="flex items-center gap-6">
-                <div className="flex-shrink-0">
-                  <img
-                    src="/uw-logo.png"
-                    alt="University of Waterloo"
-                    className="w-20 h-20 object-contain"
-                  />
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between">
-                    <div>
-                      <p className="text-zinc-500 text-sm mb-1">2022 - 2027</p>
-                      <h3 className="text-xl font-semibold text-zinc-100">
-                        Computer Engineering
-                      </h3>
-                      <p className="text-zinc-400 mt-1">
-                        Bachelor of Applied Science (BASc) • University of
-                        Waterloo
-                      </p>
-                      <p className="text-zinc-500 text-sm mt-2">
-                        Relevant Courses: ECE 722 - Reconfigurable Computing,
-                        ECE 320 - Computer Architecture, ECE 350 - Real-Time
-                        Operating Systems, ECE 351 - Compilers, ECE 327 - Digital
-                        Hardware Systems
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </Card>
+
+            {/* Secondary Navigation */}
+            <div className="flex space-x-6 mt-8">
+            {navigation.map((item) => (
+                <Link
+                key={item.href}
+                href={item.href}
+                className="text-lg font-semibold text-zinc-300 hover:text-white transition-colors"
+                >
+                {item.name}
+                </Link>
+            ))}
+            </div>
         </div>
-      </div>
+
+        {/* Right side: placeholder for image */}
+        <div className="hidden md:block w-80 h-80 bg-zinc-900/40 rounded-xl shadow-lg border border-zinc-800">
+            {/* Replace with <img src="/me.png" className="w-full h-full object-cover rounded-xl" /> */}
+        </div>
+        </div>
+
 
       {/* Experience Section */}
       <div className="relative py-24">
