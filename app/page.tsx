@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-tl from-black via-red-950 to-black">
+    <div className="relative min-h-screen bg-gradient-to-tl from-black via-red-950/10 to-black">
       {/* Sticky Navigation Bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-100 ${
