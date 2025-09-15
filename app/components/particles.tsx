@@ -325,23 +325,73 @@ export default function ElectronFlow({
 				length: 0,
 			};
 
-			// Create curved paths across the screen
-			const startY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 100;
-			const endY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 100;
+			// Create more circuit-like paths with straight segments and turns
+			const pathType = Math.random();
 			
-			// Generate smooth curve points
-			const segments = 50;
-			for (let j = 0; j <= segments; j++) {
-				const t = j / segments;
-				const x = t * w;
+			if (pathType < 0.4) {
+				// Horizontal path with some turns
+				const y = (h / (pathCount + 1)) * (i + 1);
+				const turnCount = 1 + Math.floor(Math.random() * 3);
 				
-				// Create wavy paths with some randomness
-				const waveFreq = 2 + Math.random() * 2;
-				const waveAmp = 30 + Math.random() * 40;
-				const baseY = startY + (endY - startY) * t;
-				const y = baseY + Math.sin(t * Math.PI * waveFreq) * waveAmp * Math.sin(Math.PI * t);
+				let currentX = 0;
+				let currentY = y;
+				path.points.push({ x: currentX, y: currentY });
 				
-				path.points.push({ x, y });
+				for (let turn = 0; turn < turnCount; turn++) {
+					// Straight segment
+					const segmentLength = w / (turnCount + 1) + (Math.random() - 0.5) * 100;
+					currentX += segmentLength;
+					path.points.push({ x: currentX, y: currentY });
+					
+					// Turn (if not the last segment)
+					if (turn < turnCount - 1) {
+						const turnDirection = Math.random() < 0.5 ? 1 : -1;
+						const turnAmount = 40 + Math.random() * 60;
+						currentY += turnDirection * turnAmount;
+						path.points.push({ x: currentX, y: currentY });
+					}
+				}
+				
+				// Final segment to edge
+				path.points.push({ x: w, y: currentY });
+				
+			} else if (pathType < 0.7) {
+				// L-shaped or step paths
+				const startX = Math.random() * w * 0.2;
+				const startY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 50;
+				const endX = w * 0.8 + Math.random() * w * 0.2;
+				const endY = (h / (pathCount + 1)) * (i + 1) + (Math.random() - 0.5) * 50;
+				
+				path.points.push({ x: startX, y: startY });
+				
+				// Add a corner point
+				const cornerChoice = Math.random();
+				if (cornerChoice < 0.5) {
+					// Horizontal then vertical
+					path.points.push({ x: endX, y: startY });
+					path.points.push({ x: endX, y: endY });
+				} else {
+					// Vertical then horizontal
+					path.points.push({ x: startX, y: endY });
+					path.points.push({ x: endX, y: endY });
+				}
+				
+			} else {
+				// More subtle wavy paths (less random)
+				const startY = (h / (pathCount + 1)) * (i + 1);
+				const segments = 30;
+				
+				for (let j = 0; j <= segments; j++) {
+					const t = j / segments;
+					const x = t * w;
+					
+					// Gentler waves
+					const waveAmp = 15 + Math.random() * 25;
+					const waveFreq = 1 + Math.random() * 1;
+					const y = startY + Math.sin(t * Math.PI * waveFreq) * waveAmp;
+					
+					path.points.push({ x, y });
+				}
 			}
 
 			// Calculate path length
