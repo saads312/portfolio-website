@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-tl from-black via-zinc-600/20 to-black">
+    <div className="relative min-h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500">
       {/* Sticky Navigation Bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-100 ${
@@ -86,7 +86,7 @@ export default function Home() {
 
         <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
         <div className="my-16 text-center animate-fade-in">
-          <h2 className="text-sm text-zinc-500 ">
+          <h2 className="text-m text-zinc-500 ">
             Passionate about all things Digital Hardware! Looking to innovate in
             the field of ML Hardware, FPGA, or ASIC Design.
           </h2>
