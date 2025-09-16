@@ -342,8 +342,9 @@ export default function Particles({
 		const columnWidth = fontSize * 1.2;
 		const columns = Math.floor(w / columnWidth);
 
-		for (let i = 0; i < Math.min(quantity, columns); i++) {
-			const x = (i * columnWidth) + (columnWidth / 2);
+		for (let i = 0; i < quantity; i++) {
+			// Distribute drops evenly across the full width
+			const x = (i / quantity) * w;
 			drops.current.push({
 				x: x,
 				y: Math.random() * -h, // Start above screen
@@ -354,7 +355,7 @@ export default function Particles({
 			});
 		}
 	};
-
+    
 	const updateDrop = (drop: Drop) => {
 		const { h } = canvasSize.current;
 		

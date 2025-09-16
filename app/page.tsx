@@ -119,7 +119,7 @@ export default function Home() {
 
           <div className="space-y-6">
             <Card>
-              <div className="p-8">
+              <div className="p-8 bg-zinc-900/80">
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
@@ -168,7 +168,7 @@ export default function Home() {
             </Card>
 
             <Card>
-              <div className="p-8">
+              <div className="p-8 bg-zinc-900/80">
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
@@ -181,13 +181,57 @@ export default function Home() {
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between">
                       <div>
                         <div className="flex items-center justify-between mb-1">
-                          <p className="text-zinc-500 text-sm">Sep - Dec 2023</p>
-                          <p className="text-zinc-500 text-sm">Kitchener, ON</p>
+                          <p className="text-zinc-500 text-sm">May 2024 - Aug 2024</p>
+                          <p className="text-zinc-500 text-sm">Waterloo, ON</p>
                         </div>
                         <h3 className="text-xl font-semibold text-zinc-100">
-                          Software Engineer Intern
+                          Technical Writer
                         </h3>
-                        <p className="text-zinc-400 mt-1">Monogram</p>
+                        <p className="text-zinc-400 mt-1">Dematic</p>
+                        <ul className="text-zinc-500 text-sm mt-2 space-y-1">
+                          <li>
+                            • Developed features for the Monogram Creative
+                            Console desktop app using TypeScript, C++, Qt, and
+                            QML across Mac and Windows platforms
+                          </li>
+                          <li>
+                            • Implemented a copy/paste module assignment system
+                            that improved user workflows and satisfaction
+                          </li>
+                          <li>
+                            • Leveraged Git for version control and contributed
+                            to agile sprint cycles, participating in issue
+                            tracking and prioritization
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <Card>
+              <div className="p-8 bg-zinc-900/80">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <img
+                      src="/monogram-logo.png"
+                      alt="Monogram"
+                      className="w-20 h-20 object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="text-zinc-500 text-sm">Jan 2023 - Apr 2023</p>
+                          <p className="text-zinc-500 text-sm">Dorval, QC (Remote)</p>
+                        </div>
+                        <h3 className="text-xl font-semibold text-zinc-100">
+                          Technical Writer
+                        </h3>
+                        <p className="text-zinc-400 mt-1">Matrox Imaging | Zebra Technologies</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
                           <li>
                             • Developed features for the Monogram Creative
