@@ -179,7 +179,7 @@ export default function Home() {
                           <p className="text-zinc-500 text-sm">Waterloo, ON</p>
                         </div>
                         <h3 className="text-xl font-semibold text-zinc-100">
-                          Technical Writer
+                          Technical Writer (Co-op)
                         </h3>
                         <p className="text-zinc-400 mt-1">Dematic</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
@@ -218,7 +218,7 @@ export default function Home() {
                           <p className="text-zinc-500 text-sm">Dorval, QC (Remote)</p>
                         </div>
                         <h3 className="text-xl font-semibold text-zinc-100">
-                          Technical Writer
+                          Technical Writer (Co-op)
                         </h3>
                         <p className="text-zinc-400 mt-1">Matrox Imaging | Zebra Technologies</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
