@@ -123,7 +123,7 @@ export default function Home() {
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
-                      src="/opal-logo.png"
+                      src="/vcast.png"
                       alt="VCast Online"
                       className="w-20 h-20 object-contain"
                     />
@@ -145,19 +145,13 @@ export default function Home() {
                         <p className="text-zinc-400 mt-1">VCast Online</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
                           <li>
-                            • Designed and executed test plans to validate
-                            backend systems built in Python and C++, ensuring
-                            reliable communication with connected devices
+                            • Led the full-stack development of a collaborative mind-map platform, enabling real-time feedback and map sharing, driving community engagement up by 25%.
                           </li>
                           <li>
-                            • Performed cloud-based testing across AWS and GCP
-                            deployments, validating scalability, availability,
-                            and fault tolerance of backend services
+                            • Built and deployed a scalable SvelteKit + Node.js web app from scratch, integrating dynamic graph editing (Cytoscape.js), Google OAuth, JWT authentication, and enforced access control logic (owner vs viewer privileges)
                           </li>
                           <li>
-                            • Contributed to Python automation scripts to
-                            streamline regression testing of backend APIs and
-                            device communication workflows
+                            • Architected and integrated a Mongoose-based feedback system, enabling structured insights collection on nodes, edges, and the graph as a whole — improving data access times by 18%.
                           </li>
                         </ul>
                       </div>
@@ -172,8 +166,8 @@ export default function Home() {
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
-                      src="/monogram-logo.png"
-                      alt="Monogram"
+                      src="/dematic.png"
+                      alt="Dematic"
                       className="w-20 h-20 object-contain"
                     />
                   </div>
@@ -190,18 +184,13 @@ export default function Home() {
                         <p className="text-zinc-400 mt-1">Dematic</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
                           <li>
-                            • Developed features for the Monogram Creative
-                            Console desktop app using TypeScript, C++, Qt, and
-                            QML across Mac and Windows platforms
+                            • Developed comprehensive technical documentation for Dematic’s mechanical and control systems, enhancing user understanding and supporting the seamless integration of advanced automation technologies.
                           </li>
                           <li>
-                            • Implemented a copy/paste module assignment system
-                            that improved user workflows and satisfaction
+                            • Authored detailed user manuals and technical guides for Dematic’s InSights logistics software, ensuring clarity in functionality and facilitating efficient software deployment across multiple industries.
                           </li>
                           <li>
-                            • Leveraged Git for version control and contributed
-                            to agile sprint cycles, participating in issue
-                            tracking and prioritization
+                            • Simplified complex engineering concepts for diverse audiences, enhancing usability and efficiency.
                           </li>
                         </ul>
                       </div>
@@ -234,18 +223,14 @@ export default function Home() {
                         <p className="text-zinc-400 mt-1">Matrox Imaging | Zebra Technologies</p>
                         <ul className="text-zinc-500 text-sm mt-2 space-y-1">
                           <li>
-                            • Developed features for the Monogram Creative
-                            Console desktop app using TypeScript, C++, Qt, and
-                            QML across Mac and Windows platforms
+                            • Documented and tested new features added to the company's proprietary software, Matrox Design Assistant, which is a flowchart-based software allowing users to design their own imaging apps.
                           </li>
                           <li>
-                            • Implemented a copy/paste module assignment system
-                            that improved user workflows and satisfaction
+                            • Collaborated with software engineers to document new functions and capabilities in the company's C Library (Matrox Imaging Library).
+
                           </li>
                           <li>
-                            • Leveraged Git for version control and contributed
-                            to agile sprint cycles, participating in issue
-                            tracking and prioritization
+                            • Worked with oXygen XML editor to make changes to the official company user manual and user reference which is sold to clients.
                           </li>
                         </ul>
                       </div>
