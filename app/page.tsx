@@ -166,7 +166,7 @@ export default function Home() {
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
-                      src="/dematic.png"
+                      src="/dematic.jpg"
                       alt="Dematic"
                       className="w-20 h-20 object-contain"
                     />
@@ -205,8 +205,8 @@ export default function Home() {
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
-                      src="/monogram-logo.png"
-                      alt="Monogram"
+                      src="/matrox.jpg"
+                      alt="Matrox Imaging"
                       className="w-20 h-20 object-contain"
                     />
                   </div>
