@@ -104,7 +104,7 @@ export default function Home() {
         {/* Right side: placeholder for image */}
         <div className="hidden md:block w-80 h-80 bg-zinc-900/40 rounded-xl shadow-lg border border-zinc-800">
           {/* Replace with <img src="/me.png" className="w-full h-full object-cover rounded-xl" /> */}
-          <img src="/headshot.jpg" className="w-full h-full object-cover rounded-xl" />
+          <img src="/headshot.jpeg" className="w-full h-full object-cover rounded-xl" />
         </div>
       </div>
 
