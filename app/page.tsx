@@ -119,6 +119,45 @@ export default function Home() {
           </div>
 
           <div className="space-y-6">
+          <Card>
+              <div className="p-8 bg-zinc-900/80">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <img
+                      src="/matrox.jpg"
+                      alt="UW ASIC"
+                      className="w-20 h-20 object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="text-zinc-500 text-sm">Aug 2025 - Ongoing</p>
+                          <p className="text-zinc-500 text-sm">Waterloo)</p>
+                        </div>
+                        <h3 className="text-xl font-semibold text-zinc-100">
+                          Digital Design Engineer
+                        </h3>
+                        <p className="text-zinc-400 mt-1">UW ASIC Design Team</p>
+                        <ul className="text-zinc-500 text-sm mt-2 space-y-1">
+                          <li>
+                            • Leading the design of a lightweight RISC-V core with custom instructions and an AXI interface for integration into an analog ASIC project.
+                          </li>
+                          <li>
+                            • Implemented a Serial Peripheral Interface (SPI) module in Verilog, incorporating flip-flop synchronizers to handle clock domain crossing and prevent metastability.
+
+                          </li>
+                          <li>
+                            • Developed and executed verification tests using Cocotb, a Python-based testbench framework, as part of the team’s TinyTapeout ASIC flow.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
             <Card>
               <div className="p-8 bg-zinc-900/80">
                 <div className="flex items-start gap-6">
@@ -149,7 +188,7 @@ export default function Home() {
                             • Led the full-stack development of a collaborative mind-map platform, enabling real-time feedback and map sharing, driving community engagement up by 25%.
                           </li>
                           <li>
-                            • Built and deployed a scalable SvelteKit + Node.js web app from scratch, integrating dynamic graph editing (Cytoscape.js), Google OAuth, JWT authentication, and enforced access control logic (owner vs viewer privileges)
+                            • Built and deployed a scalable SvelteKit + Node.js web app from scratch, integrating dynamic graph editing (Cytoscape.js), Google OAuth, JWT authentication, and enforced access control logic (owner vs viewer privileges).
                           </li>
                           <li>
                             • Architected and integrated a Mongoose-based feedback system, enabling structured insights collection on nodes, edges, and the graph as a whole — improving data access times by 18%.
