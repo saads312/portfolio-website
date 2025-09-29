@@ -37,7 +37,7 @@ export const Navigation: React.FC = () => {
             href="/"
             className="duration-200 text-zinc-300 hover:text-white"
           >
-            <ArrowLeft className="w-6 h-6 " />
+            Saad Syed
           </Link>
         </div>
       </div>

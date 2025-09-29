@@ -17,7 +17,7 @@ export default function ResumeModal() {
 
       {/* Modal overlay */}
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
           {/* Modal box */}
           <div className="bg-gradient-to-br from-zinc-900/95 via-red-950/40 to-black/95 
                           p-6 rounded-xl shadow-2xl max-w-sm w-full text-center 
