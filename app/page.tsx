@@ -124,7 +124,7 @@ export default function Home() {
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
                     <img
-                      src="/uw-asic.png"
+                      src="/uwasic_logo.jpeg"
                       alt="UW ASIC"
                       className="w-20 h-20 object-contain"
                     />
@@ -134,7 +134,7 @@ export default function Home() {
                       <div>
                         <div className="flex items-center justify-between mb-1">
                           <p className="text-zinc-500 text-sm">Aug 2025 - Ongoing</p>
-                          <p className="text-zinc-500 text-sm">Waterloo)</p>
+                          <p className="text-zinc-500 text-sm">Waterloo, ON</p>
                         </div>
                         <h3 className="text-xl font-semibold text-zinc-100">
                           Digital Design Engineer
