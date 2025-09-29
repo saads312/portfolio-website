@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Particles from "./components/particles";
 import { Card } from "./components/card";
+import { Navigation } from "./components/nav";
 
 const navigation = [
   { name: "Projects", href: "/projects" },
@@ -14,7 +15,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-gradient-to-tl from-black via-red-950/30 to-black">
       {/* Always-Visible Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50">
+      {/* <nav className="fixed top-0 left-0 right-0 z-50">
         <div className="bg-black/80 backdrop-blur-md border-b border-zinc-800">
           <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
@@ -38,7 +39,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
+      <Navigation />
 
       {/* Particles Background */}
       {/* <ElectronFlow
