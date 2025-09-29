@@ -2,6 +2,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import ResumeModal from "./ResumeModal";
 
 export const Navigation: React.FC = () => {
   return (
@@ -21,12 +22,15 @@ export const Navigation: React.FC = () => {
             >
               Contact
             </Link>
-            <Link
+            {/* <Link
               href="/resume3bnew.pdf"
               className="duration-200 text-zinc-300 hover:text-white font-medium"
             >
               Resume
-            </Link>
+            </Link> */}
+
+            <ResumeModal />
+
           </div>
 
           <Link
