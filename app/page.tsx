@@ -8,7 +8,7 @@ import { Navigation } from "./components/nav";
 const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
-  { name: "Resume", href: "/resume3bnew.pdf" },
+  { name: "Resume", href: "/resume3bnew" },
 ];
 
 export default function Home() {
@@ -72,7 +72,7 @@ export default function Home() {
           {/* Quick Links */}
           <div className="flex space-x-4 mt-4">
             <Link
-              href="/resume3bnew.pdf"
+              href="/DV_saadsyed3Bresume.pdf"
               className="px-5 py-2.5 text-sm font-medium text-white rounded-full 
               bg-white/5 backdrop-blur-sm border border-white/10 
               hover:bg-red-600/80 hover:border-red-500 

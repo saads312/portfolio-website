@@ -26,7 +26,7 @@ export default function ResumeModal() {
 
             <div className="flex flex-col space-y-3">
               <Link
-                href="/resume3bnew.pdf"
+                href="/saadsyed3Bresumegen.pdf"
                 target="_blank"
                 className="px-4 py-2 rounded-lg bg-white/5 text-white border border-white/10 
                            hover:bg-red-600/30 hover:border-red-500 transition-colors duration-300"
@@ -34,7 +34,7 @@ export default function ResumeModal() {
                 General Resume
               </Link>
               <Link
-                href="/resume3bfinal.pdf"
+                href="/DV_saadsyed3Bresume.pdf"
                 target="_blank"
                 className="px-4 py-2 rounded-lg bg-white/5 text-white border border-white/10 
                            hover:bg-red-600/30 hover:border-red-500 transition-colors duration-300"
