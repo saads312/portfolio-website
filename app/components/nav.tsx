@@ -1,5 +1,4 @@
 "use client";
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import ResumeModal from "./ResumeModal";
@@ -7,38 +6,29 @@ import ResumeModal from "./ResumeModal";
 export const Navigation: React.FC = () => {
   return (
     <header>
-      <div className="fixed inset-x-0 top-0 z-50 bg-zinc-900 border-b border-zinc-800 shadow-md">
-        <div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
-          <div className="flex justify-between gap-8">
+      <div className="fixed inset-x-0 top-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-900">
+        <div className="container flex items-center justify-between p-5 mx-auto max-w-5xl">
+          <Link
+            href="/"
+            className="text-sm font-mono text-zinc-400 hover:text-white transition-colors duration-200"
+          >
+            saad syed
+          </Link>
+          <nav className="flex items-center gap-8">
             <Link
               href="/projects"
-              className="duration-200 text-zinc-300 hover:text-white font-medium"
+              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200"
             >
               Projects
             </Link>
             <Link
               href="/contact"
-              className="duration-200 text-zinc-300 hover:text-white font-medium"
+              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200"
             >
               Contact
             </Link>
-            {/* <Link
-              href="/resume3bnew.pdf"
-              className="duration-200 text-zinc-300 hover:text-white font-medium"
-            >
-              Resume
-            </Link> */}
-
             <ResumeModal />
-
-          </div>
-
-          <Link
-            href="/"
-            className="duration-200 text-zinc-300 hover:text-white"
-          >
-            Saad Syed
-          </Link>
+          </nav>
         </div>
       </div>
     </header>

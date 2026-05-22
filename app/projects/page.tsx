@@ -1,191 +1,21 @@
-// import Link from "next/link";
-// import React from "react";
-// import { allProjects } from "contentlayer/generated";
-// import { Navigation } from "../components/nav";
-// import { Card } from "../components/card";
-// import { Article } from "./article";
-// // import { Redis } from "@upstash/redis";
-// import { Eye } from "lucide-react";
-
-// // const redis = Redis.fromEnv();
-
-// export const revalidate = 60;
-// export default async function ProjectsPage() {
-// //   const views = (
-// //     await redis.mget<number[]>(
-// //       ...allProjects.map((p) => ["pageviews", "projects", p.slug].join(":")),
-// //     )
-// //   ).reduce((acc, v, i) => {
-// //     acc[allProjects[i].slug] = v ?? 0;
-// //     return acc;
-// //   }, {} as Record<string, number>);
-//   const views: Record<string, number> = {};
-
-//   const featured = allProjects.find((project) => project.slug === "mvm")!;
-//   const top2 = allProjects.find((project) => project.slug === "tanh")!;
-//   const top3 = allProjects.find((project) => project.slug === "riscv")!;
-//   const sorted = allProjects
-//     .filter((p) => p.published)
-//     .filter(
-//       (project) =>
-//         project.slug !== featured.slug &&
-//         project.slug !== top2.slug &&
-//         project.slug !== top3.slug,
-//     )
-//     .sort((a, b) => {
-//       // Sort WIP projects first
-//       if (a.status === "wip" && b.status !== "wip") return -1;
-//       if (b.status === "wip" && a.status !== "wip") return 1;
-      
-//       // Then sort by date within each group
-//       return (
-//         new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
-//         new Date(a.date ?? Number.POSITIVE_INFINITY).getTime()
-//       );
-//     });
-
-//   return (
-//     <div className="relative pb-16">
-//       <Navigation />
-//       <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
-//         <div className="max-w-2xl mx-auto lg:mx-0">
-//           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-//             Projects
-//           </h2>
-//           <p className="mt-4 text-zinc-400">
-//             A mix of lab projects alongside personal builds from my spare time and hobbies.
-//           </p>
-//         </div>
-//         <div className="w-full h-px bg-zinc-800" />
-
-//         <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
-//           <Card>
-//             <Link href={`/projects/${featured.slug}`}>
-//               <article className="relative w-full h-full p-4 md:p-8">
-//                 <div className="flex items-center justify-between gap-2">
-//                   <div className="text-xs text-zinc-100">
-//                     {featured.date ? (
-//                       <time dateTime={new Date(featured.date).toISOString()}>
-//                         {Intl.DateTimeFormat(undefined, {
-//                           dateStyle: "medium",
-//                         }).format(new Date(featured.date))}
-//                       </time>
-//                     ) : (
-//                       <span>SOON</span>
-//                     )}
-//                   </div>
-//                   <span className="flex items-center gap-1 text-xs text-zinc-500">
-//                     <Eye className="w-4 h-4" />{" "}
-//                     {Intl.NumberFormat("en-US", { notation: "compact" }).format(
-//                       views[featured.slug] ?? 0,
-//                     )}
-//                   </span>
-//                 </div>
-
-//                 <h2
-//                   id="featured-post"
-//                   className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
-//                 >
-//                   {featured.title}
-//                 </h2>
-//                 <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
-//                   {featured.description}
-//                 </p>
-//                 <div className="absolute bottom-4 md:bottom-8">
-//                   <p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-//                     Read more <span aria-hidden="true">&rarr;</span>
-//                   </p>
-//                 </div>
-//               </article>
-//             </Link>
-//           </Card>
-
-//           <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
-//             {[top2, top3].map((project) => (
-//               <Card key={project.slug}>
-//                 <Article project={project} views={views[project.slug] ?? 0} />
-//               </Card>
-//             ))}
-//           </div>
-//         </div>
-//         <div className="hidden w-full h-px md:block bg-zinc-800" />
-
-//         <div className="max-w-7xl mx-auto space-y-6">
-//           {sorted.map((project) => (
-//             <Card key={project.slug}>
-//               <Link href={`/projects/${project.slug}`}>
-//                 <article className="relative w-full h-full p-6 md:p-8">
-//                   <div className="flex items-center justify-between gap-2 mb-4">
-//                     <div className="text-xs text-zinc-100">
-//                       {project.date ? (
-//                         <time dateTime={new Date(project.date).toISOString()}>
-//                           {Intl.DateTimeFormat(undefined, {
-//                             dateStyle: "medium",
-//                           }).format(new Date(project.date))}
-//                         </time>
-//                       ) : (
-//                         <span>SOON</span>
-//                       )}
-//                     </div>
-//                     <span className="flex items-center gap-1 text-xs text-zinc-500">
-//                       <Eye className="w-4 h-4" />{" "}
-//                       {Intl.NumberFormat("en-US", { notation: "compact" }).format(
-//                         views[project.slug] ?? 0,
-//                       )}
-//                     </span>
-//                   </div>
-
-//                   <h2 className={`text-xl font-bold text-zinc-100 group-hover:text-white sm:text-2xl font-display ${project.status === "wip" ? "flex items-center" : ""}`}>
-//                     {project.title}
-//                     {project.status === "wip" && (
-//                       <span className="ml-2 px-2 py-1 text-xs bg-yellow-600/20 text-yellow-400 rounded-full">
-//                         WIP
-//                       </span>
-//                     )}
-//                   </h2>
-//                   <p className="mt-3 leading-7 duration-150 text-zinc-400 group-hover:text-zinc-300">
-//                     {project.description}
-//                   </p>
-//                   <div className="mt-4">
-//                     <p className="text-zinc-200 hover:text-zinc-50 text-sm">
-//                       Read more <span aria-hidden="true">&rarr;</span>
-//                     </p>
-//                   </div>
-//                 </article>
-//               </Link>
-//             </Card>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import Link from "next/link";
 import React from "react";
 import { allProjects } from "contentlayer/generated";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { Article } from "./article";
-import { Eye } from "lucide-react";
 
 export const revalidate = 60;
 
 export default async function ProjectsPage() {
-  // Views disabled (use Redis if needed)
-  const views: Record<string, number> = {};
-
-  // Make sure we only keep valid, published projects with slugs
   const validProjects = allProjects.filter(
     (p) => p?.slug && p?.published !== false
   );
 
-  // Find featured by slug (match your actual filenames!)
-  const featured = validProjects.find((p) => p.slug === "mvm");
-  const top2 = validProjects.find((p) => p.slug === "tanh");
-  const top3 = validProjects.find((p) => p.slug === "riscv");
+  const featured = validProjects.find((p) => p.slug === "bert");
+  const top2 = validProjects.find((p) => p.slug === "adders");
+  const top3 = validProjects.find((p) => p.slug === "uvm");
 
-  // Defensive filtering (remove ones already used as featured/top2/top3)
   const sorted = validProjects
     .filter(
       (p) =>
@@ -203,121 +33,108 @@ export default async function ProjectsPage() {
     });
 
   return (
-    <div className="relative pb-16">
+    <div className="relative pb-16 bg-black min-h-screen">
       <Navigation />
-      <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+
+      {/* Subtle glow */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-950/15 rounded-full blur-3xl" />
+      </div>
+
+      <div className="px-6 pt-20 mx-auto space-y-12 max-w-5xl lg:px-8 md:pt-24 lg:pt-32">
         <div className="max-w-2xl mx-auto lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl font-display">
             Projects
           </h2>
-          <p className="mt-4 text-zinc-400">
-            A mix of lab projects alongside personal builds from my spare time and hobbies.
+          <p className="mt-3 text-zinc-500 font-mono text-sm">
+            Hardware & software builds — FPGA, RTL design, and beyond.
           </p>
         </div>
-        <div className="w-full h-px bg-zinc-800" />
+        <div className="w-full h-px bg-zinc-900" />
 
         {/* Featured + top2/top3 */}
         {featured && (
-          <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
+          <div className="grid grid-cols-1 gap-6 mx-auto lg:grid-cols-2">
             <Card>
               <Link href={`/projects/${featured.slug}`}>
-                <article className="relative w-full h-full p-4 md:p-8">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="text-xs text-zinc-100">
-                      {featured.date ? (
-                        <time dateTime={new Date(featured.date).toISOString()}>
-                          {Intl.DateTimeFormat(undefined, {
-                            dateStyle: "medium",
-                          }).format(new Date(featured.date))}
-                        </time>
-                      ) : (
-                        <span>SOON</span>
-                      )}
-                    </div>
-                    <span className="flex items-center gap-1 text-xs text-zinc-500">
-                      <Eye className="w-4 h-4" />{" "}
-                      {Intl.NumberFormat("en-US", { notation: "compact" }).format(
-                        views[featured.slug] ?? 0
-                      )}
+                <article className="relative w-full h-full p-6 md:p-8">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="px-2 py-0.5 text-xs font-mono bg-red-950/40 text-red-400 border border-red-900/40 rounded">
+                      Featured
                     </span>
+                    {featured.date && (
+                      <time
+                        dateTime={new Date(featured.date).toISOString()}
+                        className="text-xs text-zinc-600 font-mono"
+                      >
+                        {Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
+                          new Date(featured.date)
+                        )}
+                      </time>
+                    )}
                   </div>
-
                   <h2
                     id="featured-post"
-                    className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
+                    className="text-2xl font-bold text-zinc-100 group-hover:text-white sm:text-3xl font-display"
                   >
                     {featured.title}
                   </h2>
-                  <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
+                  <p className="mt-3 leading-7 text-zinc-500 group-hover:text-zinc-400 text-sm">
                     {featured.description}
                   </p>
-                  <div className="absolute bottom-4 md:bottom-8">
-                    <p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
-                      Read more <span aria-hidden="true">&rarr;</span>
-                    </p>
-                  </div>
+                  <p className="mt-6 text-sm text-zinc-400 group-hover:text-zinc-200 flex items-center gap-1">
+                    Read more <span aria-hidden="true">→</span>
+                  </p>
                 </article>
               </Link>
             </Card>
 
-            <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
+            <div className="flex flex-col w-full gap-6">
               {[top2, top3].filter(Boolean).map((project) => (
                 <Card key={project!.slug}>
-                  <Article project={project!} views={views[project!.slug] ?? 0} />
+                  <Article project={project!} />
                 </Card>
               ))}
             </div>
           </div>
         )}
 
-        <div className="hidden w-full h-px md:block bg-zinc-800" />
+        <div className="w-full h-px bg-zinc-900" />
 
-        {/* Remaining sorted projects */}
-        <div className="max-w-7xl mx-auto space-y-6">
+        {/* Remaining projects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {sorted.map((project) => (
             <Card key={project.slug}>
               <Link href={`/projects/${project.slug}`}>
                 <article className="relative w-full h-full p-6 md:p-8">
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="text-xs text-zinc-100">
-                      {project.date ? (
-                        <time dateTime={new Date(project.date).toISOString()}>
-                          {Intl.DateTimeFormat(undefined, {
-                            dateStyle: "medium",
-                          }).format(new Date(project.date))}
-                        </time>
-                      ) : (
-                        <span>SOON</span>
-                      )}
-                    </div>
-                    <span className="flex items-center gap-1 text-xs text-zinc-500">
-                      <Eye className="w-4 h-4" />{" "}
-                      {Intl.NumberFormat("en-US", { notation: "compact" }).format(
-                        views[project.slug] ?? 0
-                      )}
-                    </span>
-                  </div>
-
-                  <h2
-                    className={`text-xl font-bold text-zinc-100 group-hover:text-white sm:text-2xl font-display ${
-                      project.status === "wip" ? "flex items-center" : ""
-                    }`}
-                  >
-                    {project.title}
+                  <div className="flex items-center gap-2 mb-3">
+                    {project.date ? (
+                      <time
+                        dateTime={new Date(project.date).toISOString()}
+                        className="text-xs text-zinc-600 font-mono"
+                      >
+                        {Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
+                          new Date(project.date)
+                        )}
+                      </time>
+                    ) : (
+                      <span className="text-xs text-zinc-600 font-mono">Soon</span>
+                    )}
                     {project.status === "wip" && (
-                      <span className="ml-2 px-2 py-1 text-xs bg-yellow-600/20 text-yellow-400 rounded-full">
+                      <span className="px-2 py-0.5 text-xs font-mono bg-yellow-900/30 text-yellow-500 border border-yellow-900/40 rounded">
                         WIP
                       </span>
                     )}
+                  </div>
+                  <h2 className="text-lg font-semibold text-zinc-100 group-hover:text-white font-display">
+                    {project.title}
                   </h2>
-                  <p className="mt-3 leading-7 duration-150 text-zinc-400 group-hover:text-zinc-300">
+                  <p className="mt-2 text-sm leading-6 text-zinc-500 group-hover:text-zinc-400">
                     {project.description}
                   </p>
-                  <div className="mt-4">
-                    <p className="text-zinc-200 hover:text-zinc-50 text-sm">
-                      Read more <span aria-hidden="true">&rarr;</span>
-                    </p>
-                  </div>
+                  <p className="mt-4 text-xs text-zinc-500 group-hover:text-zinc-300 flex items-center gap-1">
+                    Read more →
+                  </p>
                 </article>
               </Link>
             </Card>

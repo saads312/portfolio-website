@@ -1,0 +1,32 @@
+---
+title: BERT Encoder on AMD Versal Hard-NoC
+description: BERT-style transformer encoder implemented on AMD Versal, achieving 1.5 GB/s aggregate NoC bandwidth for DDR-PL communication with 4-head self-attention via AXI-Stream and DMA pipelines.
+date: "2025-06-01"
+repository: saads312/bert-versal
+published: true
+---
+
+# BERT Encoder on AMD Versal Hard-NoC
+
+## Overview
+
+Architected and integrated a **BERT-style encoder datapath** on AMD Versal, achieving **1.5 GB/s aggregate NoC bandwidth** for DDR-PL communication. The project emphasizes scalable data movement over compute, leveraging Versal's Hard-NoC infrastructure.
+
+## Architecture
+
+- Implemented and verified **multi-head self-attention (4 heads)** using AXI-Stream + DMA pipelines
+- Reduced memory bandwidth requirements by **4x** through INT8 quantization of activations and weights
+- Developed a parameterized system operating at **300 MHz** supporting configurable tokens, embedding size, and head count
+- Enforced constraints for systolic tiling, AXI burst alignment, and memory efficiency
+
+## Key Results
+
+| Metric | Value |
+|--------|-------|
+| Aggregate NoC Bandwidth | 1.5 GB/s |
+| Clock Frequency | 300 MHz |
+| Attention Heads | 4 (configurable) |
+| Memory BW Reduction | 4x (INT8 quantization) |
+
+## Tools
+SystemVerilog, Tcl, AMD Versal, Hard-NoC, AXI4, AXI-Stream, DMA, Vivado

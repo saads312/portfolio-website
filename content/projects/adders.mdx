@@ -1,0 +1,32 @@
+---
+title: High-Frequency Adders on Agilex-5 FPGA
+description: Optimized a 2048-bit adder achieving 41% frequency improvement (600→848 MHz) and 25% area reduction through automated design-space exploration of Kogge-Stone configurations.
+date: "2025-03-01"
+repository: saads312/adder-dse
+published: true
+---
+
+# High-Frequency Adders on Agilex-5 FPGA
+
+## Overview
+
+Optimized a **2048-bit carry-lookahead adder** architecture on Intel Agilex-5 FPGA, achieving a **41% frequency improvement** and **25% area reduction** through automated design-space exploration.
+
+## Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Frequency | 600 MHz | 848 MHz | **+41%** |
+| Area (ALMs) | 10.9K | 8.2K | **-25%** |
+| Memory LABs | 700 | 0 | **-100%** |
+| LAB Utilization | 1,758 | 1,211 | **-31%** |
+
+## Approach
+
+- Swept 11 Kogge-Stone configurations (M=2 to M=2048, powers of 2) via automated Bash scripts
+- Selected M=16 Kogge-Stone as the optimal frequency-area tradeoff
+- Eliminated all memory LAB usage through optimized ALM packing
+- Used Quartus Prime Pro TimeQuest for static timing analysis throughout
+
+## Tools
+SystemVerilog, Quartus Prime Pro, TimeQuest STA, Bash, Intel Agilex-5

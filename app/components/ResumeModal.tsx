@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { X } from "lucide-react";
 
 export default function ResumeModal() {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {/* Trigger button (this replaces your navbar Resume link) */}
       <button
         onClick={() => setOpen(true)}
         className="duration-200 text-zinc-300 hover:text-white font-medium"
@@ -15,41 +15,47 @@ export default function ResumeModal() {
         Resume
       </button>
 
-      {/* Modal overlay */}
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
-          {/* Modal box */}
-          <div className="bg-gradient-to-br from-zinc-900/95 via-red-950/40 to-black/95 
-                          p-6 rounded-xl shadow-2xl max-w-sm w-full text-center 
-                          border border-red-900/30">
-            <h2 className="text-xl font-bold text-white mb-4">Choose a Resume</h2>
-
-            <div className="flex flex-col space-y-3">
-              <Link
-                href="/saadsyed3Bresumegen.pdf"
-                target="_blank"
-                className="px-4 py-2 rounded-lg bg-white/5 text-white border border-white/10 
-                           hover:bg-red-600/30 hover:border-red-500 transition-colors duration-300"
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl shadow-2xl max-w-sm w-full mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-sm font-mono text-zinc-400 uppercase tracking-widest">Choose Resume</h2>
+              <button
+                onClick={() => setOpen(false)}
+                className="text-zinc-600 hover:text-zinc-300 transition-colors"
               >
-                General Resume
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/saadsyed_4A_FPGAgen.pdf"
+                target="_blank"
+                onClick={() => setOpen(false)}
+                className="px-4 py-3 rounded-lg bg-zinc-900 text-sm text-zinc-100 border border-zinc-800
+                           hover:border-red-700/60 hover:bg-red-950/20 transition-all duration-200"
+              >
+                <span className="font-medium">FPGA / Digital Hardware</span>
+                <p className="text-xs text-zinc-500 mt-0.5">Current — 4A focus</p>
               </Link>
               <Link
                 href="/DV_saadsyed3Bresume.pdf"
                 target="_blank"
-                className="px-4 py-2 rounded-lg bg-white/5 text-white border border-white/10 
-                           hover:bg-red-600/30 hover:border-red-500 transition-colors duration-300"
+                onClick={() => setOpen(false)}
+                className="px-4 py-3 rounded-lg bg-zinc-900 text-sm text-zinc-100 border border-zinc-800
+                           hover:border-zinc-600 hover:bg-zinc-800/40 transition-all duration-200"
               >
-                Digital Hardware & Verification
+                <span className="font-medium">Digital Verification</span>
+                <p className="text-xs text-zinc-500 mt-0.5">3B — DV focus</p>
               </Link>
             </div>
-
-            <button
-              onClick={() => setOpen(false)}
-              className="mt-6 px-4 py-2 text-sm rounded-lg bg-red-600/80 text-white 
-                         hover:bg-red-700 transition-colors duration-300"
-            >
-              Close
-            </button>
           </div>
         </div>
       )}
