@@ -1,15 +1,16 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Particles from "./components/particles";
 import { Card } from "./components/card";
 import { Navigation } from "./components/nav";
+import { animate, stagger, createTimeline, scrambleText } from "animejs";
 
 const skills: Record<string, string[]> = {
   Languages: ["SystemVerilog", "Verilog", "C/C++", "Python", "Assembly (ARMv7, RISC-V)"],
   Protocols: ["AXI4 / AXI4-Lite", "AXI-Stream", "PCIe / QDMA", "SPI", "UART"],
   Tools: ["Vivado", "Quartus Prime Pro", "CocoTB", "GTKWave", "TimeQuest", "Git", "Linux"],
-  Concepts: ["RTL Design", "Timing Closure", "CDC", "Pipelining & Retiming", "FSMs", "UVM", "Formal Verification (Lean4)"],
+  Concepts: ["RTL Design", "Timing Closure", "CDC", "Pipelining & Retiming", "FSMs", "UVM", "Formal Verification"],
 };
 
 const experience = [
@@ -46,7 +47,7 @@ const experience = [
     company: "VCast Online",
     bullets: [
       "Led full-stack development of a collaborative mind-map platform, enabling real-time feedback and map sharing, driving community engagement up by 25%.",
-      "Built and deployed a SvelteKit + Node.js web app integrating Cytoscape.js graph editing, Google OAuth, JWT authentication, and access control (owner vs. viewer).",
+      "Built and deployed a SvelteKit + Node.js web app integrating Cytoscape.js graph editing, Google OAuth, JWT authentication, and access control.",
       "Architected a Mongoose-based feedback system enabling structured insights on nodes, edges, and graphs — improving data access times by 18%.",
     ],
   },
@@ -57,8 +58,8 @@ const experience = [
     role: "Technical Writer (Co-op)",
     company: "Dematic",
     bullets: [
-      "Developed comprehensive technical documentation for Dematic's mechanical and control systems, supporting integration of advanced automation technologies.",
-      "Authored detailed user manuals for Dematic's InSights logistics software, ensuring clarity and facilitating efficient deployment across multiple industries.",
+      "Developed comprehensive technical documentation for Dematic's mechanical and control systems.",
+      "Authored detailed user manuals for Dematic's InSights logistics software, facilitating efficient deployment across multiple industries.",
       "Simplified complex engineering concepts for diverse audiences, enhancing usability and efficiency.",
     ],
   },
@@ -84,11 +85,93 @@ const skillColors: Record<string, string> = {
 };
 
 export default function Home() {
+  /* ── Entrance animations ─────────────────────────── */
+  useEffect(() => {
+    // Hero timeline
+    const tl = createTimeline({ defaults: { ease: "outExpo" } });
+
+    tl.add("#hero-badge",  { opacity: [0, 1], y: [-10, 0], duration: 500 }, 80)
+      .add("#hero-desc",   { opacity: [0, 1], y: [18, 0],  duration: 650 }, 900)
+      .add(".hero-link",   { opacity: [0, 1], y: [14, 0],  duration: 480,
+                             delay: stagger(70) }, 1050)
+      .add("#hero-photo",  { opacity: [0, 1], scale: [0.92, 1], duration: 750 }, 150);
+
+    // Name scramble — each word decoded separately
+    animate("#hero-name-1", {
+      // @ts-ignore – scrambleText is a v4 plugin property
+      scrambleText: scrambleText({ chars: "uppercase", speed: 0.4 }),
+      opacity: [0, 1],
+      duration: 1100,
+      ease: "outExpo",
+      delay: 250,
+    });
+    animate("#hero-name-2", {
+      // @ts-ignore
+      scrambleText: scrambleText({ chars: "uppercase", speed: 0.4 }),
+      opacity: [0, 1],
+      duration: 1100,
+      ease: "outExpo",
+      delay: 550,
+    });
+
+    /* ── Scroll-triggered animations ─────────────────── */
+    const observers: IntersectionObserver[] = [];
+
+    const onEnter = (
+      selector: string,
+      animFn: (el: Element) => void,
+      threshold = 0.15
+    ) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animFn(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold }
+      );
+      document.querySelectorAll(selector).forEach((el) => obs.observe(el));
+      observers.push(obs);
+    };
+
+    // Section headings slide up
+    onEnter(".section-heading", (el) => {
+      animate(el, { opacity: [0, 1], y: [22, 0], duration: 600, ease: "outExpo" });
+    }, 0.2);
+
+    // Skills groups — chips bounce in per group
+    onEnter(".skills-group", (el) => {
+      animate(el.querySelectorAll(".skill-chip"), {
+        opacity: [0, 1],
+        y: [10, 0],
+        scale: [0.78, 1],
+        delay: stagger(28, { from: "center" }),
+        duration: 380,
+        ease: "outBack(1.7)",
+      });
+    }, 0.1);
+
+    // Experience cards slide up with stagger
+    onEnter(".exp-card", (el) => {
+      animate(el, { opacity: [0, 1], y: [28, 0], duration: 520, ease: "outCubic" });
+    }, 0.08);
+
+    // Education card
+    onEnter(".edu-card", (el) => {
+      animate(el, { opacity: [0, 1], y: [20, 0], duration: 500, ease: "outCubic" });
+    }, 0.1);
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-black">
       <Navigation />
 
-      {/* Particle background */}
+      {/* Particles */}
       <Particles
         className="absolute inset-0 -z-10 animate-fade-in"
         quantity={50}
@@ -97,96 +180,99 @@ export default function Home() {
         opacity={0.3}
       />
 
-      {/* Subtle red glow */}
+      {/* Ambient red glow */}
       <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-red-950/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[520px] bg-red-950/20 rounded-full blur-3xl" />
       </div>
 
-      {/* Hero */}
+      {/* ── Hero ─────────────────────────────────────────── */}
       <section className="flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-24 w-screen min-h-screen px-8 md:px-16 pt-24 pb-16">
         <div className="flex flex-col space-y-6 max-w-xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/30 border border-red-900/30 w-fit">
+          {/* Status badge */}
+          <div
+            id="hero-badge"
+            style={{ opacity: 0 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/30 border border-red-900/30 w-fit"
+          >
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-            <span className="text-xs text-red-300 font-mono tracking-wide">FPGA Research · UWaterloo</span>
+            <span className="text-xs text-red-300 font-mono tracking-wide">
+              FPGA Research · UWaterloo
+            </span>
           </div>
 
+          {/* Name — two separate spans for per-word scramble */}
           <h1 className="text-6xl sm:text-7xl md:text-8xl font-display font-bold text-white leading-none tracking-tight">
-            Saad<br />Syed
+            <span id="hero-name-1" style={{ opacity: 0 }} className="block">Saad</span>
+            <span id="hero-name-2" style={{ opacity: 0 }} className="block">Syed</span>
           </h1>
 
-          <p className="text-base text-zinc-400 leading-relaxed max-w-md">
-            Computer Engineering @ UWaterloo. Building high-performance digital hardware —
-            FPGA transport-layer acceleration, RTL design, and ASIC verification.
+          {/* Description */}
+          <p
+            id="hero-desc"
+            style={{ opacity: 0 }}
+            className="text-base text-zinc-400 leading-relaxed max-w-md"
+          >
+            Computer Engineering @ UWaterloo. Building high-performance digital
+            hardware — FPGA transport-layer acceleration, RTL design, and ASIC
+            verification.
           </p>
 
+          {/* Links */}
           <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="/saadsyed_4A_FPGAgen.pdf"
-              target="_blank"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-lg
-              bg-white/5 border border-white/10
-              hover:bg-red-600/20 hover:border-red-500/50
-              transition-all duration-200"
-            >
-              Resume
-            </Link>
-            <Link
-              href="https://linkedin.com/in/saad-syed-uw"
-              target="_blank"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-lg
-              bg-white/5 border border-white/10
-              hover:bg-blue-600/20 hover:border-blue-500/50
-              transition-all duration-200"
-            >
-              LinkedIn
-            </Link>
-            <Link
-              href="https://github.com/saads312"
-              target="_blank"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-lg
-              bg-white/5 border border-white/10
-              hover:bg-zinc-600/30 hover:border-zinc-500/50
-              transition-all duration-200"
-            >
-              GitHub
-            </Link>
-            <Link
-              href="mailto:noorulsaad@gmail.com"
-              className="px-5 py-2.5 text-sm font-medium text-white rounded-lg
-              bg-white/5 border border-white/10
-              hover:bg-zinc-600/30 hover:border-zinc-500/50
-              transition-all duration-200"
-            >
-              Email
-            </Link>
+            {[
+              { href: "/saadsyed_4A_FPGAgen.pdf", label: "Resume", hover: "hover:bg-red-600/20 hover:border-red-500/50", target: "_blank" },
+              { href: "https://linkedin.com/in/saad-syed-uw", label: "LinkedIn", hover: "hover:bg-blue-600/20 hover:border-blue-500/50", target: "_blank" },
+              { href: "https://github.com/saads312", label: "GitHub", hover: "hover:bg-zinc-600/30 hover:border-zinc-500/50", target: "_blank" },
+              { href: "mailto:noorulsaad@gmail.com", label: "Email", hover: "hover:bg-zinc-600/30 hover:border-zinc-500/50", target: undefined },
+            ].map(({ href, label, hover, target }) => (
+              <Link
+                key={label}
+                href={href}
+                target={target}
+                className={`hero-link px-5 py-2.5 text-sm font-medium text-white rounded-lg
+                  bg-white/5 border border-white/10 ${hover}
+                  transition-all duration-200`}
+                style={{ opacity: 0 }}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
 
-        <div className="hidden md:block relative">
+        {/* Photo */}
+        <div id="hero-photo" style={{ opacity: 0 }} className="hidden md:block relative">
           <div className="w-64 h-64 lg:w-72 lg:h-72 rounded-2xl overflow-hidden ring-1 ring-zinc-700/50 shadow-2xl shadow-black/50">
-            <img src="/headshot.jpeg" className="w-full h-full object-cover" alt="Saad Syed" />
+            <img
+              src="/headshot.jpeg"
+              className="w-full h-full object-cover"
+              alt="Saad Syed"
+            />
           </div>
           <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-red-500/10 to-transparent pointer-events-none" />
         </div>
       </section>
 
-      {/* Skills */}
+      {/* ── Skills ───────────────────────────────────────── */}
       <section className="relative py-20 border-t border-zinc-900">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="mb-12">
+          <div className="section-heading mb-12" style={{ opacity: 0 }}>
             <h2 className="text-2xl font-bold text-zinc-100 font-display">Technical Skills</h2>
             <div className="w-12 h-px bg-red-700 mt-3" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {Object.entries(skills).map(([category, items]) => (
-              <div key={category}>
-                <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">{category}</p>
+              <div key={category} className="skills-group">
+                <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">
+                  {category}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {items.map((skill) => (
                     <span
                       key={skill}
-                      className={`px-3 py-1 text-xs rounded-md font-mono transition-colors duration-150 ${skillColors[category]}`}
+                      className={`skill-chip px-3 py-1 text-xs rounded-md font-mono transition-colors duration-150 ${skillColors[category]}`}
+                      style={{ opacity: 0 }}
                     >
                       {skill}
                     </span>
@@ -198,21 +284,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience */}
+      {/* ── Experience ───────────────────────────────────── */}
       <section className="relative py-20 border-t border-zinc-900">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="mb-12">
+          <div className="section-heading mb-12" style={{ opacity: 0 }}>
             <h2 className="text-2xl font-bold text-zinc-100 font-display">Experience</h2>
             <div className="w-12 h-px bg-red-700 mt-3" />
           </div>
 
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-[39px] top-0 bottom-0 w-px bg-zinc-800 hidden md:block" />
-
-            <div className="space-y-4">
-              {experience.map((job, i) => (
-                <Card key={i}>
+          <div className="space-y-4">
+            {experience.map((job, i) => (
+              <div key={i} className="exp-card" style={{ opacity: 0 }}>
+                <Card>
                   <div className="p-6 md:p-8">
                     <div className="flex items-start gap-5">
                       <div className="flex-shrink-0 w-[60px] h-[60px] bg-zinc-900 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-zinc-800">
@@ -224,10 +307,14 @@ export default function Home() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
-                          <span className="text-xs font-mono text-zinc-500 tracking-wide">{job.period}</span>
+                          <span className="text-xs font-mono text-zinc-500 tracking-wide">
+                            {job.period}
+                          </span>
                           <span className="text-xs font-mono text-zinc-600">{job.location}</span>
                         </div>
-                        <h3 className="text-base font-semibold text-zinc-100 leading-snug">{job.role}</h3>
+                        <h3 className="text-base font-semibold text-zinc-100 leading-snug">
+                          {job.role}
+                        </h3>
                         <p className="text-sm text-zinc-500 mt-0.5 mb-3">{job.company}</p>
                         <ul className="space-y-1.5">
                           {job.bullets.map((b, j) => (
@@ -241,53 +328,81 @@ export default function Home() {
                     </div>
                   </div>
                 </Card>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Education */}
+      {/* ── Education ────────────────────────────────────── */}
       <section className="relative py-20 border-t border-zinc-900">
         <div className="container mx-auto px-6 max-w-4xl">
-          <div className="mb-12">
+          <div className="section-heading mb-12" style={{ opacity: 0 }}>
             <h2 className="text-2xl font-bold text-zinc-100 font-display">Education</h2>
             <div className="w-12 h-px bg-red-700 mt-3" />
           </div>
 
-          <Card>
-            <div className="p-6 md:p-8">
-              <div className="flex items-start gap-5">
-                <div className="flex-shrink-0 w-[60px] h-[60px] bg-zinc-900 rounded-xl overflow-hidden ring-1 ring-zinc-800 flex items-center justify-center">
-                  <img src="/uw-logo.png" alt="UWaterloo" className="w-full h-full object-contain p-1" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
-                    <span className="text-xs font-mono text-zinc-500">Sep 2022 – May 2027</span>
-                    <span className="text-xs font-mono text-zinc-600">Waterloo, ON</span>
+          <div className="edu-card" style={{ opacity: 0 }}>
+            <Card>
+              <div className="p-6 md:p-8">
+                <div className="flex items-start gap-5">
+                  <div className="flex-shrink-0 w-[60px] h-[60px] bg-zinc-900 rounded-xl overflow-hidden ring-1 ring-zinc-800 flex items-center justify-center">
+                    <img
+                      src="/uw-logo.png"
+                      alt="UWaterloo"
+                      className="w-full h-full object-contain p-1"
+                    />
                   </div>
-                  <h3 className="text-base font-semibold text-zinc-100">B.A.Sc. Computer Engineering</h3>
-                  <p className="text-sm text-zinc-500 mt-0.5 mb-3">University of Waterloo</p>
-                  <p className="text-sm text-zinc-500">
-                    <span className="text-zinc-600 font-mono text-xs uppercase tracking-widest mr-2">Courses</span>
-                    Reconfigurable Computing (Master's Level), Real-Time Operating Systems, Digital Hardware Systems,
-                    Computer Architecture, Compilers, Embedded Microprocessor Systems
-                  </p>
+                  <div className="flex-1">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
+                      <span className="text-xs font-mono text-zinc-500">Sep 2022 – May 2027</span>
+                      <span className="text-xs font-mono text-zinc-600">Waterloo, ON</span>
+                    </div>
+                    <h3 className="text-base font-semibold text-zinc-100">
+                      B.A.Sc. Computer Engineering
+                    </h3>
+                    <p className="text-sm text-zinc-500 mt-0.5 mb-3">University of Waterloo</p>
+                    <p className="text-sm text-zinc-500">
+                      <span className="text-zinc-600 font-mono text-xs uppercase tracking-widest mr-2">
+                        Courses
+                      </span>
+                      Reconfigurable Computing (Master's Level), Real-Time Operating Systems,
+                      Digital Hardware Systems, Computer Architecture, Compilers, Embedded
+                      Microprocessor Systems
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ── Footer ───────────────────────────────────────── */}
       <footer className="border-t border-zinc-900 py-10">
         <div className="container mx-auto px-6 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-600 font-mono">
           <span>saadpiece.com</span>
           <div className="flex gap-6">
-            <Link href="https://github.com/saads312" target="_blank" className="hover:text-zinc-400 transition-colors">github</Link>
-            <Link href="https://linkedin.com/in/saad-syed-uw" target="_blank" className="hover:text-zinc-400 transition-colors">linkedin</Link>
-            <Link href="mailto:noorulsaad@gmail.com" className="hover:text-zinc-400 transition-colors">email</Link>
+            <Link
+              href="https://github.com/saads312"
+              target="_blank"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              github
+            </Link>
+            <Link
+              href="https://linkedin.com/in/saad-syed-uw"
+              target="_blank"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              linkedin
+            </Link>
+            <Link
+              href="mailto:noorulsaad@gmail.com"
+              className="hover:text-zinc-400 transition-colors"
+            >
+              email
+            </Link>
           </div>
         </div>
       </footer>
