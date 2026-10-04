@@ -13,10 +13,18 @@ const skills: Record<string, string[]> = {
   Concepts: ["RTL Design", "HLS", "Timing Closure", "Low-Latency Design", "CDC", "DMA", "Pipelining & Retiming"],
 };
 
-const experience = [
+const experience: {
+  logo: string;
+  logoFit?: "cover" | "contain";
+  period: string;
+  location: string;
+  role: string;
+  company: string;
+  bullets: string[];
+}[] = [
   {
-    logo: null,
-    monogram: "AC",
+    logo: "/arches_logo.jpeg",
+    logoFit: "cover",
     period: "Sep 2026 – Present",
     location: "Toronto, ON",
     role: "FPGA Engineer (Co-op)",
@@ -310,17 +318,15 @@ export default function Home() {
                   <div className="p-6 md:p-8">
                     <div className="flex items-start gap-5">
                       <div className="flex-shrink-0 w-[60px] h-[60px] bg-zinc-900 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-zinc-800">
-                        {job.logo ? (
-                          <img
-                            src={job.logo}
-                            alt={job.company}
-                            className="w-full h-full object-contain p-1"
-                          />
-                        ) : (
-                          <span className="font-display text-lg font-bold text-red-400/80 tracking-tight">
-                            {job.monogram}
-                          </span>
-                        )}
+                        <img
+                          src={job.logo}
+                          alt={job.company}
+                          className={
+                            job.logoFit === "cover"
+                              ? "w-full h-full object-cover"
+                              : "w-full h-full object-contain p-1"
+                          }
+                        />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
