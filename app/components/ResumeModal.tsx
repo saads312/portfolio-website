@@ -49,14 +49,14 @@ export default function ResumeModal() {
 
         <div className="flex flex-col gap-3">
           <Link
-            href="/saadsyed_4A_FPGAgen.pdf"
+            href="/saadsyed_resume.pdf"
             target="_blank"
             onClick={() => setOpen(false)}
             className="px-4 py-3 rounded-lg bg-zinc-900 text-sm text-zinc-100 border border-zinc-800
                        hover:border-red-700/60 hover:bg-red-950/20 transition-all duration-200"
           >
             <span className="font-medium">FPGA / Digital Hardware</span>
-            <p className="text-xs text-zinc-500 mt-0.5">Current — 4A focus</p>
+            <p className="text-xs text-zinc-500 mt-0.5">Current</p>
           </Link>
           <Link
             href="/DV_saadsyed3Bresume.pdf"
@@ -66,7 +66,7 @@ export default function ResumeModal() {
                        hover:border-zinc-600 hover:bg-zinc-800/40 transition-all duration-200"
           >
             <span className="font-medium">Digital Verification</span>
-            <p className="text-xs text-zinc-500 mt-0.5">3B — DV focus</p>
+            <p className="text-xs text-zinc-500 mt-0.5">Alternate — DV focus</p>
           </Link>
         </div>
       </div>

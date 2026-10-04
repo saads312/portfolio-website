@@ -1,0 +1,45 @@
+---
+title: GEMM on AMD EPYC and Tenstorrent Wormhole
+description: BF16 GEMM kernel hitting 2,879 GFLOPS (93% of theoretical peak) with AVX-512BF16 intrinsics — 44% faster than AMD's AOCL library and 1st on the course leaderboard. Plus a multi-core port to Tenstorrent Wormhole in TT-Metal.
+date: "2026-09-01"
+published: true
+---
+
+# GEMM on AMD EPYC and Tenstorrent Wormhole
+
+## Overview
+
+Two high-performance **general matrix multiply (GEMM)** implementations targeting very different
+architectures: a hand-tuned BF16 kernel for AMD EPYC CPUs using AVX-512 intrinsics, and a
+multi-core kernel for the Tenstorrent Wormhole AI accelerator written in TT-Metal.
+
+## AMD EPYC — AVX-512BF16
+
+Wrote a BF16 GEMM kernel with AVX-512BF16 intrinsics reaching **2,879 GFLOPS — 93% of
+theoretical peak**, placing **1st on the ECE 493/720 course leaderboard**.
+
+| Implementation | GFLOPS | vs. AOCL |
+|---|---|---|
+| **This kernel** | **2,879** | **+44%** |
+| AMD AOCL library | 1,994 | baseline |
+| Theoretical peak | ~3,095 | — |
+
+Optimizations applied:
+
+- **SIMD-interleaved B matrix pre-packing** so inner-loop loads stay contiguous and vector-aligned
+- **6-row accumulator unrolling** to maximize register reuse and hide FMA latency
+- **4-way unrolled k-loop** to reduce loop overhead and improve instruction-level parallelism
+- **OpenMP parallelism** across N-tile slices
+
+## Tenstorrent Wormhole — TT-Metal
+
+Built a multi-core GEMM for the Tenstorrent Wormhole accelerator in TT-Metal, splitting the work
+into **reader, compute, and writer kernels** communicating over the Tensix NoC mesh.
+
+| Core grid | GFLOPS | Speedup |
+|---|---|---|
+| 1 core | ~107 | 1x |
+| **6x6 grid** | **2,570** | **24x** |
+
+## Tools
+C, AVX-512BF16 intrinsics, OpenMP, TT-Metal, Tenstorrent Wormhole, AMD EPYC

@@ -13,9 +13,9 @@ export default async function ProjectsPage() {
     (p) => p?.slug && p?.published !== false
   );
 
-  const featured = validProjects.find((p) => p.slug === "bert");
-  const top2 = validProjects.find((p) => p.slug === "adders");
-  const top3 = validProjects.find((p) => p.slug === "uvm");
+  const featured = validProjects.find((p) => p.slug === "gemm");
+  const top2 = validProjects.find((p) => p.slug === "bert");
+  const top3 = validProjects.find((p) => p.slug === "adders");
 
   const sorted = validProjects
     .filter(
@@ -76,7 +76,7 @@ export default async function ProjectsPage() {
                           className="text-xs text-zinc-600 font-mono"
                         >
                           {Intl.DateTimeFormat(undefined, {
-                            dateStyle: "medium",
+                            dateStyle: "medium", timeZone: "UTC",
                           }).format(new Date(featured.date))}
                         </time>
                       )}
@@ -134,7 +134,7 @@ export default async function ProjectsPage() {
                           className="text-xs text-zinc-600 font-mono"
                         >
                           {Intl.DateTimeFormat(undefined, {
-                            dateStyle: "medium",
+                            dateStyle: "medium", timeZone: "UTC",
                           }).format(new Date(project.date))}
                         </time>
                       ) : (

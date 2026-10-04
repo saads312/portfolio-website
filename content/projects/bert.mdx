@@ -1,32 +1,37 @@
 ---
 title: BERT Encoder on AMD Versal Hard-NoC
-description: BERT-style transformer encoder implemented on AMD Versal, achieving 1.5 GB/s aggregate NoC bandwidth for DDR-PL communication with 4-head self-attention via AXI-Stream and DMA pipelines.
-date: "2025-06-01"
+description: Transformer encoder datapath on AMD Versal with 4-head self-attention over parallel AXI-Stream + DMA pipelines — 1.5 GB/s NoC bandwidth at 300 MHz measured in RTL simulation.
+date: "2026-06-01"
 repository: saads312/bert-versal
 published: true
 ---
 
 # BERT Encoder on AMD Versal Hard-NoC
 
+> FPGA simulation — results measured in RTL simulation, not on silicon.
+
 ## Overview
 
-Architected and integrated a **BERT-style encoder datapath** on AMD Versal, achieving **1.5 GB/s aggregate NoC bandwidth** for DDR-PL communication. The project emphasizes scalable data movement over compute, leveraging Versal's Hard-NoC infrastructure.
+Architected a **transformer encoder datapath** on AMD Versal with **4-head self-attention** over
+parallel AXI-Stream + DMA pipelines, leveraging the Versal Hard-NoC for DDR–PL data movement.
+The design emphasizes scalable data movement over raw compute.
 
 ## Architecture
 
-- Implemented and verified **multi-head self-attention (4 heads)** using AXI-Stream + DMA pipelines
-- Reduced memory bandwidth requirements by **4x** through INT8 quantization of activations and weights
-- Developed a parameterized system operating at **300 MHz** supporting configurable tokens, embedding size, and head count
-- Enforced constraints for systolic tiling, AXI burst alignment, and memory efficiency
+- **4-head self-attention** implemented over parallel AXI-Stream + DMA pipelines
+- **1.5 GB/s aggregate NoC bandwidth** at **300 MHz**, measured in RTL simulation
+- Cut memory bandwidth **4x** with INT8 quantization of activations and weights
+- Parameterized tokens, embedding size, and head count
+- Enforced constraints for systolic tiling and AXI burst alignment
 
 ## Key Results
 
 | Metric | Value |
 |--------|-------|
-| Aggregate NoC Bandwidth | 1.5 GB/s |
+| NoC Bandwidth | 1.5 GB/s |
 | Clock Frequency | 300 MHz |
 | Attention Heads | 4 (configurable) |
-| Memory BW Reduction | 4x (INT8 quantization) |
+| Memory BW Reduction | 4x (INT8) |
 
 ## Tools
 SystemVerilog, Tcl, AMD Versal, Hard-NoC, AXI4, AXI-Stream, DMA, Vivado

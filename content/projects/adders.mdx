@@ -1,32 +1,34 @@
 ---
-title: High-Frequency Adders on Agilex-5 FPGA
-description: Optimized a 2048-bit adder achieving 41% frequency improvement (600→848 MHz) and 25% area reduction through automated design-space exploration of Kogge-Stone configurations.
-date: "2025-03-01"
+title: High-Frequency Adders on Intel Agilex-5
+description: Optimized a 2048-bit adder for 41% higher frequency (600→848 MHz) and 25% less area, closing timing with TimeQuest STA via retiming and pipelining across an automated 11-configuration sweep.
+date: "2026-03-01"
 repository: saads312/adder-dse
 published: true
 ---
 
-# High-Frequency Adders on Agilex-5 FPGA
+# High-Frequency Adders on Intel Agilex-5
 
 ## Overview
 
-Optimized a **2048-bit carry-lookahead adder** architecture on Intel Agilex-5 FPGA, achieving a **41% frequency improvement** and **25% area reduction** through automated design-space exploration.
+Optimized a **2048-bit adder** on Intel Agilex-5, achieving **41% higher frequency** and
+**25% less area** by closing timing with TimeQuest STA using retiming and pipelining.
 
 ## Results
 
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
 | Frequency | 600 MHz | 848 MHz | **+41%** |
-| Area (ALMs) | 10.9K | 8.2K | **-25%** |
-| Memory LABs | 700 | 0 | **-100%** |
-| LAB Utilization | 1,758 | 1,211 | **-31%** |
+| Area (ALMs) | 10.9K | 8.2K | **−25%** |
+| Memory LABs | 700 | 0 | **−100%** |
+| LAB Utilization | 1,758 | 1,211 | **−31%** |
 
 ## Approach
 
-- Swept 11 Kogge-Stone configurations (M=2 to M=2048, powers of 2) via automated Bash scripts
-- Selected M=16 Kogge-Stone as the optimal frequency-area tradeoff
+- Automated a sweep of **11 configurations** with Bash scripts that drive Quartus synthesis and
+  parse timing reports to pick the best frequency–area tradeoff
+- Selected the optimal Kogge-Stone grouping (M=16) from the sweep results
+- Applied **retiming and pipelining** to close timing under TimeQuest STA
 - Eliminated all memory LAB usage through optimized ALM packing
-- Used Quartus Prime Pro TimeQuest for static timing analysis throughout
 
 ## Tools
 SystemVerilog, Quartus Prime Pro, TimeQuest STA, Bash, Intel Agilex-5

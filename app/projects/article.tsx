@@ -15,7 +15,7 @@ export const Article: React.FC<Props> = ({ project }) => {
               dateTime={new Date(project.date).toISOString()}
               className="text-xs font-mono text-zinc-600"
             >
-              {Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
+              {Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeZone: "UTC" }).format(
                 new Date(project.date)
               )}
             </time>

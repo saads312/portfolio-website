@@ -7,23 +7,36 @@ import { Navigation } from "./components/nav";
 import { animate, stagger, createTimeline, scrambleText } from "animejs";
 
 const skills: Record<string, string[]> = {
-  Languages: ["SystemVerilog", "Verilog", "C/C++", "Python", "Assembly (ARMv7, RISC-V)"],
-  Protocols: ["AXI4 / AXI4-Lite", "AXI-Stream", "PCIe / QDMA", "SPI", "UART"],
-  Tools: ["Vivado", "Quartus Prime Pro", "CocoTB", "GTKWave", "TimeQuest", "Git", "Linux"],
-  Concepts: ["RTL Design", "Timing Closure", "CDC", "Pipelining & Retiming", "FSMs", "UVM", "Formal Verification"],
+  Languages: ["SystemVerilog", "Verilog", "C/C++", "Python", "Vitis HLS", "Assembly (ARMv7, RISC-V)"],
+  Protocols: ["AXI4 / AXI4-Lite", "AXI-Stream", "PCIe", "Ethernet", "SPI", "UART"],
+  Tools: ["Vivado (synthesis, STA, P&R)", "Quartus Prime Pro", "CocoTB", "GTKWave", "Git", "Linux"],
+  Concepts: ["RTL Design", "HLS", "Timing Closure", "Low-Latency Design", "CDC", "DMA", "Pipelining & Retiming"],
 };
 
 const experience = [
   {
+    logo: null,
+    monogram: "AC",
+    period: "Sep 2026 – Present",
+    location: "Toronto, ON",
+    role: "FPGA Engineer (Co-op)",
+    company: "ArchES Computing Systems",
+    bullets: [
+      "Integrated an AXI-Stream monitor into a large order-routing platform on a Xilinx V80LL and closed timing (WNS −1.77 ns → +0.049 ns), using the Vivado timing analyzer and block diagram viewer to trace critical paths and combinational loops.",
+      "Broke combinational loops with register slices and split a reset driving 30+ debug probes across two reset blocks — on a platform where full builds took about a day.",
+      "Designed the architecture of a packet capture tool and implemented it in Vitis HLS; it records packets from Ethernet RX or an exchange simulator and streams them to the host over an HMQ ring for PCAP generation, speeding up error reproduction across 10+ platforms.",
+    ],
+  },
+  {
     logo: "/uw-logo.png",
-    period: "Jan 2026 – Present",
+    period: "Jan 2026 – Aug 2026",
     location: "Waterloo, ON",
     role: "FPGA Research Assistant",
     company: "University of Waterloo — Prof. Mina Arashloo",
     bullets: [
-      "Contributing to a protocol-agnostic FPGA transport-layer acceleration architecture on AMD Alveo U250, enabling hardware offload of multiple network protocols (TCP, RoCEv2).",
-      "Implementing PCIe/QDMA-based host ↔ FPGA communication using AXI-Stream within the OpenNIC 250 MHz user logic, allowing applications to drive FPGA transport logic.",
-      "Building buffering, backpressure, and request-framing logic to reliably inject host application requests into a high-throughput FPGA networking pipeline.",
+      "Built components of a protocol-agnostic FPGA transport-layer acceleration architecture on AMD Alveo U250, enabling hardware offload of multiple network protocols (TCP, RoCEv2).",
+      "Implemented PCIe/QDMA host ↔ FPGA communication using AXI-Stream in the OpenNIC 250 MHz user logic, allowing applications to drive FPGA transport logic.",
+      "Built buffering, backpressure, and request-framing logic to reliably inject host requests into a high-throughput FPGA networking pipeline.",
     ],
   },
   {
@@ -33,10 +46,8 @@ const experience = [
     role: "Digital Design Team Lead — Ethernet Packet Parser",
     company: "UW ASIC Design Team",
     bullets: [
-      "Leading a team of 15 to architect a high-throughput Ethernet packet parser from scratch, owning system architecture, RTL implementation, and block-level verification across the full design lifecycle.",
-      "Designed multi-layer packet parsing pipeline in SystemVerilog supporting Ethernet/IP/TCP header extraction with configurable match-action rules and line-rate throughput targeting.",
-      "Led RTL implementation and floorplanning of a cryptography accelerator, achieving 200 MHz operation at 65% FPGA resource utilization.",
-      "Architected an ACK-based bus arbitration protocol using open-drain signaling, reducing average arbitration latency by 4 cycles under multi-client contention.",
+      "Leading a team of 15 members on the architecture and RTL of a high-throughput Ethernet packet parser: a multi-layer pipeline for Ethernet/IP/TCP header extraction with configurable match-action rules, targeting 10G line rate.",
+      "Led RTL and floorplanning of a cryptography accelerator, closing timing at 200 MHz with 65% FPGA resource utilization.",
     ],
   },
   {
@@ -196,7 +207,7 @@ export default function Home() {
           >
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
             <span className="text-xs text-red-300 font-mono tracking-wide">
-              FPGA Research · UWaterloo
+              FPGA Engineer · ArchES Computing
             </span>
           </div>
 
@@ -213,14 +224,14 @@ export default function Home() {
             className="text-base text-zinc-400 leading-relaxed max-w-md"
           >
             Computer Engineering @ UWaterloo. Building high-performance digital
-            hardware — FPGA transport-layer acceleration, RTL design, and ASIC
-            verification.
+            hardware — low-latency FPGA design, RTL &amp; HLS, timing closure, and
+            ML accelerator kernels.
           </p>
 
           {/* Links */}
           <div className="flex flex-wrap gap-3 pt-2">
             {[
-              { href: "/saadsyed_4A_FPGAgen.pdf", label: "Resume", hover: "hover:bg-red-600/20 hover:border-red-500/50", target: "_blank" },
+              { href: "/saadsyed_resume.pdf", label: "Resume", hover: "hover:bg-red-600/20 hover:border-red-500/50", target: "_blank" },
               { href: "https://linkedin.com/in/saad-syed-uw", label: "LinkedIn", hover: "hover:bg-blue-600/20 hover:border-blue-500/50", target: "_blank" },
               { href: "https://github.com/saads312", label: "GitHub", hover: "hover:bg-zinc-600/30 hover:border-zinc-500/50", target: "_blank" },
               { href: "mailto:noorulsaad@gmail.com", label: "Email", hover: "hover:bg-zinc-600/30 hover:border-zinc-500/50", target: undefined },
@@ -299,11 +310,17 @@ export default function Home() {
                   <div className="p-6 md:p-8">
                     <div className="flex items-start gap-5">
                       <div className="flex-shrink-0 w-[60px] h-[60px] bg-zinc-900 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-zinc-800">
-                        <img
-                          src={job.logo}
-                          alt={job.company}
-                          className="w-full h-full object-contain p-1"
-                        />
+                        {job.logo ? (
+                          <img
+                            src={job.logo}
+                            alt={job.company}
+                            className="w-full h-full object-contain p-1"
+                          />
+                        ) : (
+                          <span className="font-display text-lg font-bold text-red-400/80 tracking-tight">
+                            {job.monogram}
+                          </span>
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
@@ -355,7 +372,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
-                      <span className="text-xs font-mono text-zinc-500">Sep 2022 – May 2027</span>
+                      <span className="text-xs font-mono text-zinc-500">Sep 2022 – Dec 2027</span>
                       <span className="text-xs font-mono text-zinc-600">Waterloo, ON</span>
                     </div>
                     <h3 className="text-base font-semibold text-zinc-100">
@@ -366,9 +383,8 @@ export default function Home() {
                       <span className="text-zinc-600 font-mono text-xs uppercase tracking-widest mr-2">
                         Courses
                       </span>
-                      Reconfigurable Computing (Master's Level), Real-Time Operating Systems,
-                      Digital Hardware Systems, Computer Architecture, Compilers, Embedded
-                      Microprocessor Systems
+                      Reconfigurable Computing (Master's), ML Hardware Systems (Master's),
+                      Computer Architecture, Digital Hardware Systems
                     </p>
                   </div>
                 </div>
